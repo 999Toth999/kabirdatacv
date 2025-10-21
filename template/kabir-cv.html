@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kabir Hasenbalg - Product Architect & Data Systems Specialist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 70px;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 60px;
+            height: fit-content;
+            background: #101010;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 20px;
+        }
+
+        .profile-image {
+            width: 230px;
+            height: 230px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: 700;
+        }
+
+        .available-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 10px;
+            padding: 8px 16px;
+            font-size: 16px;
+            margin-bottom: 18px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #28e98c;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .profile-name {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 7px;
+            height: 42px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-download {
+            background: #1f1f1f;
+            color: #bfbfbf;
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .btn-contact {
+            background: #28e98c;
+            color: #000;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+        }
+
+        .section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .greeting {
+            font-size: 24px;
+            color: #999;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-size: 52px;
+            font-weight: 500;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 52px;
+            font-weight: 500;
+            line-height: 1.2;
+            color: #28e98c;
+            margin-bottom: 20px;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #fff;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 30px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #999;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .section-icon {
+            width: 24px;
+            height: 24px;
+            background: #28e98c;
+            border-radius: 4px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .experience-card {
+            background: #101010;
+            border: 1px solid #303030;
+            border-radius: 12px;
+            padding: 16px 24px;
+            margin-bottom: 10px;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .experience-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .company-icon {
+            width: 24px;
+            height: 24px;
+            background: #28e98c;
+            border-radius: 4px;
+        }
+
+        .experience-info h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .experience-info .company {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .experience-period {
+            background: #1f1f1f;
+            border: 1px solid #303030;
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .experience-description {
+            font-size: 16px;
+            color: #999;
+            line-height: 1.6;
+            border-top: 1px solid #303030;
+            padding-top: 10px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            background: #101010;
+            border: 1px solid #303030;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .skill-category h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            background: #28e98c;
+            color: #000;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        .education-item {
+            background: #101010;
+            border: 1px solid #303030;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .education-item h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .education-item p {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .additional-info {
+            background: #101010;
+            border: 1px solid #303030;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .additional-info h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            font-size: 16px;
+            color: #999;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .info-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #28e98c;
+            font-weight: bold;
+        }
+
+        @media (max-width: 1199px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .sidebar {
+                position: relative;
+                top: 0;
+            }
+            
+            .hero-title, .hero-subtitle {
+                font-size: 42px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .hero-title, .hero-subtitle {
+                font-size: 30px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .skills-grid, .education-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="profile-image">KH</div>
+            
+            <div class="available-badge">
+                <div class="status-dot"></div>
+                Available for work
+            </div>
+            
+            <h2 class="profile-name">Kabir Hasenbalg</h2>
+            
+            <div class="social-links">
+                <a href="#" class="social-link">📧</a>
+                <a href="#" class="social-link">🌐</a>
+                <a href="#" class="social-link">💼</a>
+                <a href="#" class="social-link">📱</a>
+                <a href="#" class="social-link">🔗</a>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="#" class="btn btn-download">📄 Download CV</a>
+                <a href="#contact" class="btn btn-contact">Contact Me</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <section class="section">
+                <div class="greeting">👋 Say Hello</div>
+                <h1 class="hero-title">I'm Kabir Hasenbalg,</h1>
+                <h1 class="hero-subtitle">Founder | Product Architect</h1>
+                <h1 class="hero-title">Based in Amsterdam, Netherlands.</h1>
+                <p class="description">
+                    Entrepreneur, product architect, and data systems specialist with extensive experience in web development, database architecture, and automation. Founder of DJElite and Hasen Marketing Agency, with a track record of building data-driven platforms and creative-technical ecosystems that scale.
+                </p>
+                
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-number">6+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">Companies Founded</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Languages</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon"></div>
+                    <h2 class="section-title">Professional Experience</h2>
+                </div>
+                
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div class="experience-content">
+                            <div class="company-icon"></div>
+                            <div class="experience-info">
+                                <h3>Founder & Head of Product</h3>
+                                <div class="company">DJElite</div>
+                            </div>
+                        </div>
+                        <div class="experience-period">2023 – Present</div>
+                    </div>
+                    <div class="experience-description">
+                        Founded a global platform connecting DJs, promoters, and event organizers through data-driven tools, automation, and creative branding. Designed and managed full product ecosystem: web architecture, databases (Supabase, Neon.tech), and UX. Built front-end environments on Netlify/Vercel, integrated OAuth, Stripe, APIs, and backend tools (Notion, Airtable). Created AI-driven workflows for content automation, email campaigns, and audience analytics.
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div class="experience-content">
+                            <div class="company-icon"></div>
+                            <div class="experience-info">
+                                <h3>Founder & CEO</h3>
+                                <div class="company">Hasen Marketing Agency</div>
+                            </div>
+                        </div>
+                        <div class="experience-period">2019 – 2025</div>
+                    </div>
+                    <div class="experience-description">
+                        Built a marketing and data consulting agency delivering ROI-driven campaigns for eCommerce and creative businesses. Developed automated marketing pipelines, dashboards, and analytics systems. Managed client strategy, campaign execution, and business scaling.
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div class="experience-content">
+                            <div class="company-icon"></div>
+                            <div class="experience-info">
+                                <h3>Head of Marketing & Communications</h3>
+                                <div class="company">On The Ground Sound</div>
+                            </div>
+                        </div>
+                        <div class="experience-period">2019 – 2024</div>
+                    </div>
+                    <div class="experience-description">
+                        Led marketing and communications strategy for a global music platform. Developed campaigns, managed social media, PR, and media relations. Oversaw design, project coordination, and analytics reporting.
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div class="experience-content">
+                            <div class="company-icon"></div>
+                            <div class="experience-info">
+                                <h3>Video, Photography & Lighting Editor</h3>
+                                <div class="company">The Loft Studios</div>
+                            </div>
+                        </div>
+                        <div class="experience-period">2020 – 2022</div>
+                    </div>
+                    <div class="experience-description">
+                        Edited video and photography content for clients and internal projects. Managed studio lighting, post-production, and visual storytelling.
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon"></div>
+                    <h2 class="section-title">Core Skills</h2>
+                </div>
+                
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Technical / Analytical</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Supabase</span>
+                            <span class="skill-tag">Neon.tech</span>
+                            <span class="skill-tag">PostgreSQL</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">SQL</span>
+                            <span class="skill-tag">OAuth</span>
+                            <span class="skill-tag">Stripe</span>
+                            <span class="skill-tag">APIs</span>
+                            <span class="skill-tag">Netlify</span>
+                            <span class="skill-tag">Vercel</span>
+                            <span class="skill-tag">Zapier</span>
+                            <span class="skill-tag">Notion API</span>
+                            <span class="skill-tag">Airtable</span>
+                            <span class="skill-tag">HTML</span>
+                            <span class="skill-tag">CSS</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">Git/GitHub</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>Business & Strategic</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Product Strategy</span>
+                            <span class="skill-tag">Ecosystem Design</span>
+                            <span class="skill-tag">Growth Analytics</span>
+                            <span class="skill-tag">Marketing Automation</span>
+                            <span class="skill-tag">Performance Tracking</span>
+                            <span class="skill-tag">Leadership</span>
+                            <span class="skill-tag">Agile/Scrum</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>Creative & Design</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Branding</span>
+                            <span class="skill-tag">UX Design</span>
+                            <span class="skill-tag">Interface Design</span>
+                            <span class="skill-tag">Video Production</span>
+                            <span class="skill-tag">Photography</span>
+                            <span class="skill-tag">AI Content Systems</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>Languages</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">English (Fluent)</span>
+                            <span class="skill-tag">Spanish (Fluent)</span>
+                            <span class="skill-tag">Portuguese (Professional)</span>
+                            <span class="skill-tag">Italian (Basic)</span>
+                            <span class="skill-tag">German (Basic)</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon"></div>
+                    <h2 class="section-title">Education & Certifications</h2>
+                </div>
+                
+                <div class="education-grid">
+                    <div class="education-item">
+                        <h3>CS50: Introduction to Computer Science</h3>
+                        <p>Harvard University</p>
+                    </div>
+                    <div class="education-item">
+                        <h3>Python Certification</h3>
+                        <p>Universidad de Buenos Aires (2014, 2015)</p>
+                    </div>
+                    <div class="education-item">
+                        <h3>Design in Image and Sound</h3>
+                        <p>University of Buenos Aires (FADU), ongoing</p>
+                    </div>
+                    <div class="education-item">
+                        <h3>Music Production</h3>
+                        <p>Berklee College of Music, 2015</p>
+                    </div>
+                    <div class="education-item">
+                        <h3>Accounting & Administration</h3>
+                        <p>Huerto College, 2013</p>
+                    </div>
+                    <div class="education-item">
+                        <h3>Cabin Crew Formation</h3>
+                        <p>Instituto Italo-Suizo, 2016</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="contact">
+                <div class="additional-info">
+                    <h3>Additional Information</h3>
+                    <ul class="info-list">
+                        <li>Strong entrepreneurial mindset and product vision</li>
+                        <li>Experienced in leading international teams, combining technical and creative expertise</li>
+                        <li>Passion for data-driven creativity, interactive systems, and automation workflows</li>
+                        <li>Multilingual and culturally adaptable, thriving in global projects</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
