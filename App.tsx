@@ -35,7 +35,7 @@ const cvData: CVData = {
   email: "kabirhasen@gmail.com",
   phone: "+55 21 999340899",
   address: "Buenos Aires, Argentina",
-  profilePictureUrl: "./ka profile.jpg",
+  profilePictureUrl: "/ka-profile.jpg",
   socials: [
     { name: "GitHub", url: "https://github.com/kabir-hasenbalg", icon: GithubIcon },
     { name: "Twitter", url: "https://x.com/", icon: TwitterIcon },
