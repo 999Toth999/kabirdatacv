@@ -400,12 +400,21 @@ const App = () => {
     // ===== CORE SKILLS =====
     sectionTitle('Core Skills');
     const skillColW = (contentW - 4) / 2;
+    const skillLineH = 3.5;
+    pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5);
     for (let i = 0; i < cvData.skills.length; i += 2) {
       const heights = [0, 0];
+      const itemLines: string[][][] = [[], []];
       for (let j = 0; j < 2; j++) {
         const cat = cvData.skills[i + j];
         if (!cat) break;
-        heights[j] = 10 + cat.items.length * 4;
+        let totalLines = 0;
+        cat.items.forEach(item => {
+          const lines = pdf.splitTextToSize(sanitize(`• ${item}`), skillColW - 8);
+          itemLines[j].push(lines);
+          totalLines += lines.length;
+        });
+        heights[j] = 10 + totalLines * skillLineH;
       }
       const rowH = Math.max(heights[0], heights[1]);
       checkPage(rowH + 4);
@@ -417,8 +426,10 @@ const App = () => {
         pdf.setFont('helvetica', 'bold'); pdf.setFontSize(10); pdf.setTextColor(...white);
         pdf.text(cat.name, sx + 4, y + 6);
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5); pdf.setTextColor(...muted);
-        cat.items.forEach((item, idx) => {
-          pdf.text(sanitize(`• ${item}`), sx + 4, y + 12 + idx * 4, { maxWidth: skillColW - 8 });
+        let iy = y + 12;
+        itemLines[j].forEach(lines => {
+          pdf.text(lines, sx + 4, iy);
+          iy += lines.length * skillLineH;
         });
       }
       y += rowH + 4;
