@@ -489,19 +489,35 @@ const App = () => {
     }, {} as Record<string, typeof cvData.books>);
     const catEntries = Object.entries(bookCategories);
     const bookColW = (contentW - (catEntries.length - 1) * 3) / catEntries.length;
-    const maxBooks = Math.max(...catEntries.map(([, b]) => b.length));
-    const bookCardH = 10 + maxBooks * 7;
+    const bookLineH = 3.2;
+    // Pre-compute wrapped lines for each book in each category to get accurate heights
+    const catBookLines: { titleLines: string[]; author: string }[][] = catEntries.map(([, books]) => {
+      pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8);
+      return books.map(book => ({
+        titleLines: pdf.splitTextToSize(book.title, bookColW - 8),
+        author: book.author,
+      }));
+    });
+    const catHeights = catBookLines.map(bookLines => {
+      let h = 10;
+      bookLines.forEach(({ titleLines }) => { h += titleLines.length * bookLineH + bookLineH + 1; });
+      return h;
+    });
+    const bookCardH = Math.max(...catHeights);
     checkPage(bookCardH + 4);
-    catEntries.forEach(([category, books], i) => {
+    catEntries.forEach(([category], i) => {
       const bx = margin + i * (bookColW + 3);
       drawCard(bx, bookColW, bookCardH);
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(9); pdf.setTextColor(...white);
       pdf.text(category, bx + 4, y + 6);
-      books.forEach((book, idx) => {
+      let by = y + 12;
+      catBookLines[i].forEach(({ titleLines, author }) => {
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...white);
-        pdf.text(book.title, bx + 4, y + 13 + idx * 7, { maxWidth: bookColW - 8 });
+        pdf.text(titleLines, bx + 4, by);
+        by += titleLines.length * bookLineH;
         pdf.setFontSize(7); pdf.setTextColor(...muted);
-        pdf.text(book.author, bx + 4, y + 16 + idx * 7, { maxWidth: bookColW - 8 });
+        pdf.text(author, bx + 4, by);
+        by += bookLineH + 1;
       });
     });
     y += bookCardH + 6;
