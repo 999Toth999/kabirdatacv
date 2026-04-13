@@ -30,7 +30,7 @@ const MapPinIcon: React.FC<{ className?: string }> = ({ className }) => <svg cla
 // --- DATA ---
 const cvData: CVData = {
   name: "Kabir Hasenbalg",
-  title: "Founder | Product Architect | Data & Web Systems Specialist",
+  title: "AI Enablement Builder | Supabase & Automation Architect | Content × Tech",
   location: "Buenos Aires, Argentina",
   email: "kabirhasen@gmail.com",
   phone: "+55 21 999340899",
@@ -41,7 +41,7 @@ const cvData: CVData = {
     { name: "Twitter", url: "https://x.com/", icon: TwitterIcon },
     { name: "Instagram", url: "https://instagram.com/kabirhasenm", icon: InstagramIcon },
   ],
-  profile: "Entrepreneur, product architect, and data systems specialist with extensive experience in web development, database architecture, and automation. Founder of DJElite and Hasen Marketing Agency, with a track record of building data-driven platforms and creative-technical ecosystems that scale.",
+  profile: "Builder and founder at the intersection of content, automation, and AI enablement. Background in video production and social media strategy, now specializing in Supabase-powered platforms, AI-driven workflows, and operational automation for online businesses. Experienced in building end-to-end — from CRM pipelines and marketing systems to full-stack web platforms. Looking for ownership-driven roles where I can make strategic decisions, not just execute.",
   stats: [
       { value: "8+", label: "Years of Experience" },
       { value: "15+", label: "Completed Projects" },
@@ -49,13 +49,13 @@ const cvData: CVData = {
       { value: "5+", label: "Technologies Mastered" },
   ],
   skills: [
-    { name: "Technical / Analytical", items: ["Supabase, Neon.tech, PostgreSQL", "SQL & Data Modeling", "Python (Data Analysis, Automation)", "API Integrations (OAuth, Stripe, Ably)", "Netlify, Vercel Deployment", "Zapier, Notion API, Airtable", "HTML, CSS, JavaScript", "Looker Studio Dashboards", "Git/GitHub Version Control"] },
+    { name: "Technical / Analytical", items: ["Supabase (Auth, Realtime, Edge Functions, Storage)", "Claude AI / LLM Integration & Prompt Engineering", "CRM & Marketing Automation Pipelines", "PostgreSQL, Neon.tech, SQL & Data Modeling", "React, TypeScript, JavaScript", "Python (Data Analysis, Automation, Bots)", "API Integrations (OAuth, Stripe, Ably)", "Netlify, Vercel Deployment", "Zapier, Notion API, Airtable", "Git/GitHub Version Control"] },
     { name: "Business & Strategic", items: ["Product Strategy & Ecosystem Design", "Growth Strategy & Analytics", "Marketing Automation", "Stakeholder Communication", "Agile / Scrum Methodology"] },
-    { name: "Creative & Design", items: ["Branding, UX & UI Design", "Audiovisual Production", "AI-Assisted Content Systems"] }
+    { name: "Creative & Design", items: ["Video Production & Social Media Strategy", "Branding, UX & UI Design", "AI-Assisted Content Systems (Claude, GPT)"] }
   ],
   experience: [
-    { company: "DJElite", role: "Founder & Head of Product", period: "2023 - Present", location: "Amsterdam, Netherlands", description: ["Founded a global platform connecting DJs, promoters, and event organizers through data-driven tools.", "Designed and managed full product ecosystem: web architecture, databases, and UX.", "Built front-end environments on Netlify/Vercel, integrated OAuth, Stripe, and backend tools.", "Created AI-driven workflows for content automation, email campaigns, and audience analytics."], icon: "🏢" },
-    { company: "Hasen Marketing Agency", role: "Founder & CEO", period: "2019 - 2025", location: "Barcelona, Spain", description: ["Built a marketing and data consulting agency delivering ROI-driven campaigns.", "Developed automated marketing pipelines, dashboards, and analytics systems.", "Managed client strategy, campaign execution, and business scaling."], icon: "🚀" },
+    { company: "DJElite", role: "Founder & Head of Product", period: "2023 - Present", location: "Amsterdam, Netherlands", description: ["Founded a global platform connecting DJs, promoters, and event organizers — full ownership from architecture to launch.", "Built on Supabase (Auth, Realtime, PostgreSQL) with React front-end deployed on Netlify/Vercel.", "Integrated OAuth, Stripe payments, and Ably for real-time features.", "Developed AI-driven workflows using Claude and automation tools for content, email campaigns, and analytics."], icon: "🏢" },
+    { company: "Hasen Marketing Agency", role: "Founder & CEO", period: "2019 - 2025", location: "Barcelona, Spain", description: ["Built a marketing and data consulting agency delivering ROI-driven campaigns for online businesses.", "Developed CRM pipelines, automated marketing systems, dashboards, and analytics.", "Managed client strategy, campaign execution, and business scaling across info-product and coaching niches."], icon: "🚀" },
     { company: "On The Ground Sound", role: "Head of Marketing", period: "2019 - 2024", location: "Netherlands", description: ["Led marketing and communications strategy for a global music platform.", "Developed campaigns, managed social media, PR, and media relations."], icon: "🎵" },
   ],
   education: [
