@@ -14,7 +14,7 @@ const ALLOWED_ORIGINS = [
 function sanitize(str) {
   if (typeof str !== 'string') return '';
   return str
-    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '')
+    .replace(/[\x00-\x1F\x7F]/g, '')
     .trim();
 }
 
