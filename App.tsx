@@ -292,6 +292,9 @@ const App = () => {
     const white: [number, number, number] = [255, 255, 255];
     const muted: [number, number, number] = [153, 153, 153];
 
+    // Replace Unicode chars unsupported by jsPDF built-in fonts (WinAnsiEncoding)
+    const sanitize = (s: string) => s.replace(/\u2192/g, '->').replace(/\u2014/g, '--').replace(/\u2013/g, '-');
+
     const fillPage = () => { pdf.setFillColor(...black); pdf.rect(0, 0, pageW, pageH, 'F'); };
     fillPage();
 
@@ -318,7 +321,7 @@ const App = () => {
     pdf.setFont('helvetica', 'bold'); pdf.setFontSize(22); pdf.setTextColor(...white);
     pdf.text(cvData.name, margin + 6, y + 12);
     pdf.setFont('helvetica', 'normal'); pdf.setFontSize(10); pdf.setTextColor(...green);
-    pdf.text(cvData.title, margin + 6, y + 20);
+    pdf.text(sanitize(cvData.title), margin + 6, y + 20);
     pdf.setFontSize(9); pdf.setTextColor(...muted);
     pdf.text(`${cvData.email}  |  ${cvData.phone}  |  ${cvData.location}`, margin + 6, y + 28);
     const linkedIn = cvData.socials.find(s => s.name === 'LinkedIn');
@@ -330,7 +333,7 @@ const App = () => {
     // ===== PROFILE =====
     sectionTitle('Profile');
     pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(...muted);
-    const profileLines = pdf.splitTextToSize(cvData.profile, contentW - 4);
+    const profileLines = pdf.splitTextToSize(sanitize(cvData.profile), contentW - 4);
     checkPage(profileLines.length * 4 + 4);
     pdf.text(profileLines, margin + 2, y);
     y += profileLines.length * 4 + 6;
@@ -352,7 +355,7 @@ const App = () => {
     sectionTitle('Experience');
     cvData.experience.forEach(exp => {
       const bullets = exp.description;
-      const bulletLines = bullets.map(b => pdf.splitTextToSize(`• ${b}`, contentW - 14));
+      const bulletLines = bullets.map(b => pdf.splitTextToSize(sanitize(`• ${b}`), contentW - 14));
       const totalLines = bulletLines.reduce((sum, lines) => sum + lines.length, 0);
       const cardH = 18 + totalLines * 3.8;
       checkPage(cardH + 4);
@@ -415,7 +418,7 @@ const App = () => {
         pdf.text(cat.name, sx + 4, y + 6);
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5); pdf.setTextColor(...muted);
         cat.items.forEach((item, idx) => {
-          pdf.text(`• ${item}`, sx + 4, y + 12 + idx * 4, { maxWidth: skillColW - 8 });
+          pdf.text(sanitize(`• ${item}`), sx + 4, y + 12 + idx * 4, { maxWidth: skillColW - 8 });
         });
       }
       y += rowH + 4;
@@ -444,7 +447,7 @@ const App = () => {
         const item = cvData.workingStyle[i + j];
         if (!item) break;
         const [, ...rest] = item.split(': ');
-        const desc = rest.join(': ');
+        const desc = sanitize(rest.join(': '));
         const descLines = pdf.splitTextToSize(desc, wsColW - 8);
         heights[j] = 12 + descLines.length * 3.5;
       }
@@ -454,7 +457,7 @@ const App = () => {
         const item = cvData.workingStyle[i + j];
         if (!item) break;
         const [title, ...rest] = item.split(': ');
-        const desc = rest.join(': ');
+        const desc = sanitize(rest.join(': '));
         const wx = margin + j * (wsColW + 4);
         drawCard(wx, wsColW, rowH);
         pdf.setFont('helvetica', 'bold'); pdf.setFontSize(9); pdf.setTextColor(...white);
