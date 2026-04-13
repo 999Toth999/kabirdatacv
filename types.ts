@@ -12,6 +12,9 @@ export interface CVData {
   skills: SkillCategory[];
   experience: Experience[];
   education: Education[];
+  languages: Language[];
+  workingStyle: string[];
+  books: Book[];
 }
 
 export interface SocialLink {
@@ -44,4 +47,15 @@ export interface Education {
   institution: string;
   period: string;
   details?: string;
+}
+
+export interface Language {
+  name: string;
+  level: string;
+}
+
+export interface Book {
+  title: string;
+  author: string;
+  category: string;
 }

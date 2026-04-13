@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import type { CVData, Experience, Education, SocialLink, Stat } from './types';
+import type { CVData, Experience, Education, SocialLink, Stat, Language, Book } from './types';
 
 // --- ICONS ---
 const InstagramIcon: React.FC<{ className?: string }> = ({ className }) => (
@@ -26,43 +26,82 @@ const PaperPlaneIcon: React.FC<{ className?: string }> = ({ className }) => <svg
 const PhoneIcon: React.FC<{ className?: string }> = ({ className }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>;
 const MailIcon: React.FC<{ className?: string }> = ({ className }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>;
 const MapPinIcon: React.FC<{ className?: string }> = ({ className }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>;
+const LinkedInIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+);
+const BookIcon: React.FC<{ className?: string }> = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>;
+const GlobeIcon: React.FC<{ className?: string }> = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>;
+const UserIcon: React.FC<{ className?: string }> = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>;
 
 // --- DATA ---
 const cvData: CVData = {
   name: "Kabir Hasenbalg",
-  title: "Founder | Product Architect | Data & Web Systems Specialist",
+  title: "AI Enablement Builder | Supabase & Automation Architect | Content × Tech",
   location: "Buenos Aires, Argentina",
   email: "kabirhasen@gmail.com",
-  phone: "+55 21 999340899",
+  phone: "+54 91168143855",
   address: "Buenos Aires, Argentina",
   profilePictureUrl: "/ka-profile.jpg",
   socials: [
     { name: "GitHub", url: "https://github.com/kabir-hasenbalg", icon: GithubIcon },
+    { name: "LinkedIn", url: "https://linkedin.com/in/kabirhasenbalg", icon: LinkedInIcon },
     { name: "Twitter", url: "https://x.com/", icon: TwitterIcon },
     { name: "Instagram", url: "https://instagram.com/kabirhasenm", icon: InstagramIcon },
   ],
-  profile: "Entrepreneur, product architect, and data systems specialist with extensive experience in web development, database architecture, and automation. Founder of DJElite and Hasen Marketing Agency, with a track record of building data-driven platforms and creative-technical ecosystems that scale.",
+  profile: "Strategic digital marketer and product builder with 6+ years of experience building B2C brands and Supabase-powered platforms from the ground up. Grew On The Ground Sound from dozens to 3,000+ users organically with zero ad spend through integrated content, email, and community funnels. Now specializing in AI enablement, workflow automation (N8N, Hermes Agent), and full-stack development. Operates autonomously with a founder's mindset — focused on ownership, strategy, and shipping end-to-end.",
   stats: [
-      { value: "8+", label: "Years of Experience" },
-      { value: "15+", label: "Completed Projects" },
-      { value: "10+", label: "Happy Clients" },
-      { value: "5+", label: "Technologies Mastered" },
+      { value: "3K+", label: "Users Grown Organically" },
+      { value: "6+", label: "Years of Experience" },
+      { value: "$0", label: "Ad Spend for 6,000% Growth" },
+      { value: "4", label: "Languages Spoken" },
   ],
   skills: [
-    { name: "Technical / Analytical", items: ["Supabase, Neon.tech, PostgreSQL", "SQL & Data Modeling", "Python (Data Analysis, Automation)", "API Integrations (OAuth, Stripe, Ably)", "Netlify, Vercel Deployment", "Zapier, Notion API, Airtable", "HTML, CSS, JavaScript", "Looker Studio Dashboards", "Git/GitHub Version Control"] },
-    { name: "Business & Strategic", items: ["Product Strategy & Ecosystem Design", "Growth Strategy & Analytics", "Marketing Automation", "Stakeholder Communication", "Agile / Scrum Methodology"] },
-    { name: "Creative & Design", items: ["Branding, UX & UI Design", "Audiovisual Production", "AI-Assisted Content Systems"] }
+    { name: "AI & Technical", items: ["Supabase (Auth, Realtime, Edge Functions, Storage)", "Claude Code & AI Coding Assistants (Amazon Q, Kiro-CLI, Codebuff)", "Hermes Agent (Custom Skills & Email Marketing Automation)", "N8N Workflow Automation", "Telegram Bot Development & REST API Integration", "PostgreSQL, Neon.tech, SQL & Data Modeling", "React, TypeScript, JavaScript", "Python (Data Analysis, Automation, Bots)", "API Integrations (OAuth, Stripe, Ably)", "Netlify, Vercel Deployment", "Zapier, Notion API, Airtable", "Git/GitHub Version Control"] },
+    { name: "Digital Marketing", items: ["End-to-End Funnel Design (Attention → Trust → Conversion)", "Meta Ads Campaign Strategy & Audience Targeting", "Email Marketing, Sequences & Automation", "Organic Social Media Growth (Instagram, LinkedIn, Facebook, X, YouTube)", "Copywriting: Human, Non-Corporate, Psychology-Driven", "CRM & Marketing Automation Pipelines", "Analytics & Performance Optimization"] },
+    { name: "Content Production", items: ["Video Production & Editing (Adobe Premiere, After Effects)", "Studio Photography & Lighting", "Graphic Design (Photoshop, Canva)", "Documentary Production", "AI-Assisted Content Systems (Claude, GPT)"] },
+    { name: "Business & Strategy", items: ["Product Strategy & Ecosystem Design", "Community Building & Growth", "Brand Positioning & Go-to-Market", "Stakeholder Communication", "Rapid Niche Adoption (Music, Fashion, AI Medical, Travel)"] }
   ],
   experience: [
-    { company: "DJElite", role: "Founder & Head of Product", period: "2023 - Present", location: "Amsterdam, Netherlands", description: ["Founded a global platform connecting DJs, promoters, and event organizers through data-driven tools.", "Designed and managed full product ecosystem: web architecture, databases, and UX.", "Built front-end environments on Netlify/Vercel, integrated OAuth, Stripe, and backend tools.", "Created AI-driven workflows for content automation, email campaigns, and audience analytics."], icon: "🏢" },
-    { company: "Hasen Marketing Agency", role: "Founder & CEO", period: "2019 - 2025", location: "Barcelona, Spain", description: ["Built a marketing and data consulting agency delivering ROI-driven campaigns.", "Developed automated marketing pipelines, dashboards, and analytics systems.", "Managed client strategy, campaign execution, and business scaling."], icon: "🚀" },
-    { company: "On The Ground Sound", role: "Head of Marketing", period: "2019 - 2024", location: "Netherlands", description: ["Led marketing and communications strategy for a global music platform.", "Developed campaigns, managed social media, PR, and media relations."], icon: "🎵" },
+    { company: "DJElite", role: "Founder & Head of Product", period: "2023 - 2025", location: "Amsterdam, Netherlands", description: ["Founded a global platform connecting DJs, promoters, and event organizers — full ownership from architecture to launch.", "Built on Supabase (Auth, Realtime, PostgreSQL) with React front-end deployed on Netlify/Vercel.", "Integrated OAuth, Stripe payments, and Ably for real-time features.", "Developed AI-driven workflows using Claude Code and automation tools for content, email campaigns, and analytics.", "Built Telegram bots connecting as proxy to Kiro-CLI via local REST API for automated task workflows.", "Automated repetitive email marketing tasks using Hermes Agent with custom-built skills."], icon: "🏢" },
+    { company: "Hasen Marketing Agency", role: "Founder & CEO", period: "2022 - 2025", location: "Barcelona, Spain", description: ["Managed multi-platform social media presence (LinkedIn, Instagram, X, YouTube, Facebook) for clients including OTGS.io.", "Developed Meta Ads strategies for B2C clients including 2dayMind (AI medical company), designing audience targeting and campaign structure.", "Currently managing a 9,000+ follower Instagram account for a local Indian culture brand.", "Produced video advertisements for Barcelona fashion brands including The Loft Studios.", "Built automated content posting workflows and social media scheduling systems.", "Currently managing a Meta Ads campaign for a small travel tours business."], icon: "🚀" },
+    { company: "On The Ground Sound", role: "Head of Marketing & Content", period: "2019 - 2024", location: "Amersfoort, Netherlands", description: ["Scaled user base from ~50 to 3,000+ members (6,000% growth) through strategic organic social media, email sequences, and community building — with zero paid advertising.", "Managed complete social media ecosystem (Instagram, Facebook, LinkedIn) with content strategy designed to move users through awareness → trust → signup funnel.", "Built and executed email marketing campaigns and automated sequences that converted interest into active platform members.", "Created all visual content: promotional videos, DJ mix videos, flyers, and graphics using Canva, Photoshop, and After Effects.", "Drove community growth through direct outreach on SoundCloud — messaging artists, commenting on tracks, and onboarding users to the platform.", "Business development: pitched clubs, venues, and event organizers to adopt the platform for music events.", "Influencer outreach: connected with established DJs to increase platform visibility and engagement."], icon: "🎵" },
+    { company: "The Loft Studios", role: "Video, Photography & Lighting Editor", period: "2020 - 2022", location: "Barcelona, Spain", description: ["Edited and color-graded video content for brand campaigns and social media advertising.", "Managed photography shoots including composition, lighting design, and post-production editing.", "Collaborated with creative teams to produce high-quality visual content optimized for digital platforms."], icon: "📸" },
+    { company: "Intentional Ibiza", role: "Documentary Producer", period: "2019", location: "Ibiza, Spain", description: ["Produced and directed a documentary project capturing the cultural and creative scene in Ibiza."], icon: "🎬" },
   ],
   education: [
-    { degree: "CS50: Intro to Computer Science", institution: "Harvard University", period: "Certificate" },
+    { degree: "CS50: Intro to Computer Science", institution: "Harvard University", period: "Ongoing" },
     { degree: "Python Certification", institution: "Universidad de Buenos Aires", period: "2014, 2015" },
-    { degree: "Design in Image and Sound", institution: "University of Buenos Aires (FADU)", period: "Ongoing" },
-    { degree: "Music Production", institution: "Berklee College of Music", period: "2015" },
+    { degree: "Design in Image and Sound", institution: "University of Buenos Aires (FADU)", period: "2014 - 2015" },
+    { degree: "Music Production", institution: "Berklee College of Music (Coursera)", period: "2015" },
+    { degree: "Social Media Marketing (SMMA)", institution: "Self-directed Study", period: "2019 - 2020" },
+  ],
+  languages: [
+    { name: "Spanish", level: "Native" },
+    { name: "English", level: "Native" },
+    { name: "Portuguese", level: "Professional" },
+    { name: "Italian", level: "Professional" },
+  ],
+  workingStyle: [
+    "Autonomous Operator: Comfortable taking full ownership as first or solo marketer; experienced setting own deadlines and maintaining accountability.",
+    "Rapid Niche Adoption: Proven ability to learn new industries fast (music, fashion, AI medical, Indian culture, travel) and quickly adapt language, positioning, and customer psychology.",
+    "Funnel-First Thinking: Designs marketing around complete customer journeys (attention → trust → conversion), not isolated tactics or channels.",
+    "Anti-Corporate Communication: Intentionally writes human, clear copy that builds trust; actively avoids buzzwords and corporate jargon.",
+    "Outcome-Focused: Aligns all marketing activities with real business results (bookings, sales, revenue), not just clicks or impressions.",
+    "AI-Native Workflow: Integrates AI tools (Claude Code, Hermes Agent, N8N) into daily workflows for automation, content, and development.",
+  ],
+  books: [
+    { title: "Pitch Anything", author: "Oren Klaff", category: "Business & Strategy" },
+    { title: "Blue Ocean Strategy", author: "W. Chan Kim", category: "Business & Strategy" },
+    { title: "The 4-Hour Work Week", author: "Tim Ferriss", category: "Business & Strategy" },
+    { title: "The Psychology of Selling", author: "Brian Tracy", category: "Business & Strategy" },
+    { title: "Think and Grow Rich", author: "Napoleon Hill", category: "Business & Strategy" },
+    { title: "7 Habits of Highly Effective People", author: "Stephen Covey", category: "Leadership & Growth" },
+    { title: "How to Win Friends and Influence People", author: "Dale Carnegie", category: "Leadership & Growth" },
+    { title: "Awaken the Giant Within", author: "Tony Robbins", category: "Leadership & Growth" },
+    { title: "The Art of War", author: "Sun Tzu", category: "Leadership & Growth" },
+    { title: "The Psychology of Money", author: "Morgan Housel", category: "Mindset" },
+    { title: "The Subtle Art of Not Giving a F***", author: "Mark Manson", category: "Mindset" },
+    { title: "Man's Search for Meaning", author: "Viktor Frankl", category: "Mindset" },
   ],
 };
 
@@ -367,6 +406,65 @@ const App = () => {
                     </AnimatedItem>
                 ))}
             </div>
+          </Section>
+
+          {/* Languages */}
+          <Section title="Languages" icon={<GlobeIcon />}>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {cvData.languages.map((lang, index) => (
+                      <AnimatedItem key={lang.name} delay={index * 100}>
+                          <div className="bg-brand-dark border border-brand-border p-6 rounded-xl text-center">
+                              <h3 className="font-display text-xl font-semibold text-brand-text-light">{lang.name}</h3>
+                              <p className="text-sm text-brand-text-dark mt-1">{lang.level}</p>
+                          </div>
+                      </AnimatedItem>
+                  ))}
+              </div>
+          </Section>
+
+          {/* Working Style */}
+          <Section title="Working Style" icon={<UserIcon />}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {cvData.workingStyle.map((item, index) => {
+                      const [title, ...rest] = item.split(': ');
+                      const description = rest.join(': ');
+                      return (
+                          <AnimatedItem key={index} delay={index * 100}>
+                              <div className="bg-brand-dark border border-brand-border p-6 rounded-xl h-full">
+                                  <h3 className="font-display text-lg font-semibold text-brand-text-light mb-2">{title}</h3>
+                                  <p className="text-base font-medium">{description}</p>
+                              </div>
+                          </AnimatedItem>
+                      );
+                  })}
+              </div>
+          </Section>
+
+          {/* Continuous Learning */}
+          <Section title="Continuous Learning" icon={<BookIcon />}>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {Object.entries(
+                      cvData.books.reduce((acc, book) => {
+                          if (!acc[book.category]) acc[book.category] = [];
+                          acc[book.category].push(book);
+                          return acc;
+                      }, {} as Record<string, typeof cvData.books>)
+                  ).map(([category, books], index) => (
+                      <AnimatedItem key={category} delay={index * 100}>
+                          <div className="bg-brand-dark border border-brand-border p-6 rounded-xl h-full">
+                              <h3 className="font-display text-xl font-semibold text-brand-text-light mb-4">{category}</h3>
+                              <ul className="space-y-3">
+                                  {books.map(book => (
+                                      <li key={book.title} className="text-base font-medium">
+                                          <span className="text-brand-text-light">{book.title}</span>
+                                          <span className="text-brand-text-dark text-sm block">{book.author}</span>
+                                      </li>
+                                  ))}
+                              </ul>
+                          </div>
+                      </AnimatedItem>
+                  ))}
+              </div>
           </Section>
 
           {/* Contact */}
