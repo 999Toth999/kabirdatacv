@@ -65,7 +65,7 @@ const cvData: CVData = {
     { name: "Grow & Convert", items: ["Meta Ads Strategy & Targeting", "Email Automation & Sequences", "Organic Social (Instagram, LinkedIn, X)", "Copywriting (Human, Psychology-Driven)", "Funnel Design (Attention → Trust → Conversion)", "Analytics & Optimization"] },
   ],
   experience: [
-    { company: "DJElite", role: "Founder & Head of Product", period: "2023 - 2025", location: "Amsterdam, Netherlands", description: ["Built DJElite from 0→1: global platform connecting DJs and promoters (Supabase, React, OAuth, Stripe).", "Architected real-time features (Ably) and AI-powered content workflows (Claude Code) for email campaigns.", "Created and sold DJ guides as lead magnets and info-products (BuyMeACoffee) — 4 sales, drove signups to platform.", "Deployed on Netlify/Vercel with full ownership: product, tech, and go-to-market."], icon: "🏢" },
+    { company: "DJElite", role: "Founder & Head of Product", period: "2023 - 2025", location: "Amsterdam, Netherlands", description: ["Built DJElite from 0→1: global platform connecting DJs and promoters (Supabase, React, OAuth, Stripe).", "Architected real-time features (Ably) and AI-powered content workflows (Claude Code) for email campaigns.", "Created and sold DJ guides as lead magnets and info-products (BuyMeACoffee) to drive platform signups.", "Deployed on Netlify/Vercel with full ownership: product, tech, and go-to-market."], icon: "🏢" },
     { company: "Hasen Marketing Agency", role: "Founder & CEO", period: "2022 - 2025", location: "Barcelona, Spain", description: ["Managed social media for OTGS.io (Amersfoort) and DJElite — content strategy, organic growth, community engagement.", "Developed Meta Ads proposal for 2dayMind (AI medical startup) — audience segmentation, campaign structure, targeting strategy.", "Streamlined content posting for DJElite using Buffer and AI-assisted design; produced video ads for Barcelona fashion brands."], icon: "🚀" },
     { company: "On The Ground Sound", role: "Head of Marketing & Content", period: "2019 - 2024", location: "Amersfoort, Netherlands", description: ["Grew community platform 6,000% (50→3K users) with $0 ad spend — email sequences, organic social, and automated onboarding.", "Built email sequences that converted cold leads into active members; created all visual content (videos, flyers, graphics).", "Pitched 50+ clubs and venues to adopt platform; closed partnerships that drove 40% of new signups."], icon: "🎵" },
     { company: "The Loft Studios", role: "Video, Photography & Lighting Editor", period: "2020 - 2022", location: "Barcelona, Spain", description: ["Edited and color-graded video content for brand campaigns and social media advertising.", "Managed photography shoots including composition, lighting design, and post-production editing.", "Collaborated with creative teams to produce high-quality visual content optimized for digital platforms."], icon: "📸" },
@@ -284,10 +284,10 @@ const App = () => {
     const fillPage = () => { pdf.setFillColor(...black); pdf.rect(0, 0, pageW, pageH, 'F'); };
     fillPage();
 
-    const CARD_GAP = 8;   // vertical gap between cards (increased from 6)
-    const LH = 6.0;       // base line height for body text (increased for better readability)
-    const PAD = 6;        // inner card padding
-    const PAD_TOP = 8;    // top padding for experience cards (more breathing room)
+    const CARD_GAP = 6;   // vertical gap between cards (reduced to fit more)
+    const LH = 7.0;       // base line height for body text (increased to prevent overlap)
+    const PAD = 5;        // inner card padding (reduced)
+    const PAD_TOP = 6;    // top padding for experience cards (reduced)
     const margin = 12;
     const contentW = pageW - margin * 2;
 
@@ -310,8 +310,8 @@ const App = () => {
     };
 
     // ===== HEADER (with profile photo) =====
-    const headerH = 38;
-    const photoSize = 28;
+    const headerH = 35;
+    const photoSize = 26;
     pdf.setFillColor(...dark); pdf.roundedRect(margin, y, contentW, headerH, 3, 3, 'F');
     pdf.setDrawColor(...border); pdf.roundedRect(margin, y, contentW, headerH, 3, 3, 'S');
 
@@ -334,17 +334,17 @@ const App = () => {
     } catch { /* skip photo if it fails to load */ }
 
     const textX = margin + 6 + photoSize + 6;
-    pdf.setFont('helvetica', 'bold'); pdf.setFontSize(18); pdf.setTextColor(...white);
-    pdf.text(cvData.name, textX, y + 9);
+    pdf.setFont('helvetica', 'bold'); pdf.setFontSize(17); pdf.setTextColor(...white);
+    pdf.text(cvData.name, textX, y + 8);
     pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(...green);
-    pdf.text(sanitize(cvData.title), textX, y + 15.5);
+    pdf.text(sanitize(cvData.title), textX, y + 14);
     pdf.setFontSize(8); pdf.setTextColor(...muted);
-    pdf.text(`${cvData.email}  |  ${cvData.phone}  |  ${cvData.location}`, textX, y + 22);
+    pdf.text(`${cvData.email}  |  ${cvData.phone}  |  ${cvData.location}`, textX, y + 20);
     const linkedIn = cvData.socials.find(s => s.name === 'LinkedIn');
     const github = cvData.socials.find(s => s.name === 'GitHub');
     const linksText = [linkedIn && linkedIn.url, github && github.url].filter(Boolean).join('  |  ');
-    if (linksText) { pdf.text(linksText, textX, y + 28); }
-    y += headerH + 5;
+    if (linksText) { pdf.text(linksText, textX, y + 26); }
+    y += headerH + 4;
 
     // ===== PROFILE =====
     sectionTitle('Profile');
@@ -356,19 +356,19 @@ const App = () => {
       pdf.text(line, margin + 4, profileY);
       profileY += LH;
     });
-    y = profileY + 5;
+    y = profileY + 3;
 
     // ===== STATS =====
     const statW = (contentW - 9) / 4;
-    const statH = 15;
+    const statH = 14;
     checkPage(statH + CARD_GAP);
     cvData.stats.forEach((stat, i) => {
       const sx = margin + i * (statW + 3);
       drawCard(sx, statW, statH);
-      pdf.setFont('helvetica', 'bold'); pdf.setFontSize(12); pdf.setTextColor(...green);
+      pdf.setFont('helvetica', 'bold'); pdf.setFontSize(11); pdf.setTextColor(...green);
       pdf.text(stat.value, sx + statW / 2, y + statH / 2 - 0.5, { align: 'center' });
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7); pdf.setTextColor(...muted);
-      pdf.text(stat.label, sx + statW / 2, y + statH / 2 + 4, { align: 'center' });
+      pdf.text(stat.label, sx + statW / 2, y + statH / 2 + 3.5, { align: 'center' });
     });
     y += statH + CARD_GAP;
 
@@ -383,9 +383,9 @@ const App = () => {
         pdf.text(line, margin + 4, achY);
         achY += LH;
       });
-      y = achY + 2;
+      y = achY + 1;
     });
-    y += CARD_GAP;
+    y += 4;
 
     // ===== EXPERIENCE =====
     sectionTitle('Experience');
