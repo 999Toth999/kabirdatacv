@@ -53,6 +53,13 @@
 <link rel="stylesheet" href="/index.css">
 </head>
 <body class="bg-black font-sans text-brand-text-dark">
+    <!-- Hidden form for Netlify detection -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <textarea name="message"></textarea>
+    </form>
+    
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
 </body>
