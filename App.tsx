@@ -298,6 +298,10 @@ const App = () => {
     const fillPage = () => { pdf.setFillColor(...black); pdf.rect(0, 0, pageW, pageH, 'F'); };
     fillPage();
 
+    const CARD_GAP = 4;   // vertical gap between cards
+    const LH = 4.5;       // base line height for body text (mm)
+    const PAD = 5;        // inner card padding
+
     const checkPage = (needed: number) => {
       if (y + needed > pageH - margin) { pdf.addPage(); fillPage(); y = margin; }
     };
@@ -357,14 +361,14 @@ const App = () => {
     sectionTitle('Profile');
     pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(...muted);
     const profileLines = pdf.splitTextToSize(sanitize(cvData.profile), contentW - 8);
-    checkPage(profileLines.length * 4 + 4);
+    checkPage(profileLines.length * LH + 4);
     pdf.text(profileLines, margin + 4, y);
-    y += profileLines.length * 4 + 3;
+    y += profileLines.length * LH + CARD_GAP;
 
     // ===== STATS =====
     const statW = (contentW - 9) / 4;
-    const statH = 16;
-    checkPage(statH + 6);
+    const statH = 18;
+    checkPage(statH + CARD_GAP);
     cvData.stats.forEach((stat, i) => {
       const sx = margin + i * (statW + 3);
       drawCard(sx, statW, statH);
@@ -373,63 +377,59 @@ const App = () => {
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7); pdf.setTextColor(...muted);
       pdf.text(stat.label, sx + statW / 2, y + statH / 2 + 4, { align: 'center' });
     });
-    y += statH + 3;
+    y += statH + CARD_GAP;
 
     // ===== EXPERIENCE =====
     sectionTitle('Experience');
-    const expPad = 4; // uniform inner padding
     cvData.experience.forEach(exp => {
       const bullets = exp.description;
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8);
-      const bulletLines = bullets.map(b => pdf.splitTextToSize(sanitize(`• ${b}`), contentW - 2 * expPad));
+      const bulletLines = bullets.map(b => pdf.splitTextToSize(sanitize(`• ${b}`), contentW - 2 * PAD));
       const totalLines = bulletLines.reduce((sum, lines) => sum + lines.length, 0);
-      const cardH = 18 + totalLines * 3.8 + expPad;
-      checkPage(cardH + 3);
+      const cardH = PAD + 16 + totalLines * LH + PAD;
+      checkPage(cardH + CARD_GAP);
       drawCard(margin, contentW, cardH);
-      const cx = margin + expPad;
-      let cy = y + expPad + 2;
+      const cx = margin + PAD;
+      let cy = y + PAD + 4;
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(11); pdf.setTextColor(...white);
       pdf.text(exp.role, cx, cy);
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(...green);
-      pdf.text(exp.company, cx, cy + 5);
+      pdf.text(exp.company, cx, cy + 5.5);
       pdf.setTextColor(...muted); pdf.setFontSize(8);
-      pdf.text(`${exp.period}  •  ${exp.location}`, cx, cy + 10);
-      cy += 15;
+      pdf.text(`${exp.period}  •  ${exp.location}`, cx, cy + 11);
+      cy += 16;
       pdf.setTextColor(...muted); pdf.setFontSize(8);
       bulletLines.forEach(lines => {
         pdf.text(lines, cx, cy);
-        cy += lines.length * 3.8;
+        cy += lines.length * LH;
       });
-      y += cardH + 2;
+      y += cardH + CARD_GAP;
     });
 
     // ===== EDUCATION =====
     sectionTitle('Education');
     const eduColW = (contentW - 4) / 2;
-    const ePad = 4;
-    const eduCardH = 16;
+    const eduCardH = 18;
     for (let i = 0; i < cvData.education.length; i += 2) {
-      checkPage(eduCardH + 3);
+      checkPage(eduCardH + CARD_GAP);
       for (let j = 0; j < 2; j++) {
         const edu = cvData.education[i + j];
         if (!edu) break;
         const ex = margin + j * (eduColW + 4);
         drawCard(ex, eduColW, eduCardH);
         pdf.setFont('helvetica', 'bold'); pdf.setFontSize(9); pdf.setTextColor(...white);
-        pdf.text(edu.degree, ex + ePad, y + ePad + 2, { maxWidth: eduColW - 2 * ePad - 20 });
+        pdf.text(edu.degree, ex + PAD, y + PAD + 3, { maxWidth: eduColW - 2 * PAD - 20 });
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...muted);
-        pdf.text(edu.institution, ex + ePad, y + ePad + 7);
+        pdf.text(edu.institution, ex + PAD, y + PAD + 9);
         pdf.setFontSize(7); pdf.setTextColor(...green);
-        pdf.text(edu.period, ex + eduColW - ePad, y + ePad + 2, { align: 'right' });
+        pdf.text(edu.period, ex + eduColW - PAD, y + PAD + 3, { align: 'right' });
       }
-      y += eduCardH + 2;
+      y += eduCardH + CARD_GAP;
     }
 
     // ===== CORE SKILLS =====
     sectionTitle('Core Skills');
     const skillColW = (contentW - 4) / 2;
-    const skillLineH = 3.5;
-    const cPad = 4; // uniform card padding
     pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5);
     for (let i = 0; i < cvData.skills.length; i += 2) {
       const heights: number[] = [0, 0];
@@ -439,36 +439,36 @@ const App = () => {
         if (!cat) break;
         let totalLines = 0;
         cat.items.forEach(item => {
-          const lines = pdf.splitTextToSize(sanitize(`• ${item}`), skillColW - 2 * cPad);
+          const lines = pdf.splitTextToSize(sanitize(`• ${item}`), skillColW - 2 * PAD);
           itemLines[j].push(lines);
           totalLines += lines.length;
         });
-        heights[j] = cPad + 8 + totalLines * skillLineH + cPad;
+        heights[j] = PAD + 9 + totalLines * LH + PAD;
       }
       const rowH = Math.max(heights[0], heights[1]);
-      checkPage(rowH + 3);
+      checkPage(rowH + CARD_GAP);
       for (let j = 0; j < 2; j++) {
         const cat = cvData.skills[i + j];
         if (!cat) break;
         const sx = margin + j * (skillColW + 4);
         drawCardAt(sx, y, skillColW, rowH);
         pdf.setFont('helvetica', 'bold'); pdf.setFontSize(10); pdf.setTextColor(...white);
-        pdf.text(cat.name, sx + cPad, y + cPad + 4);
+        pdf.text(cat.name, sx + PAD, y + PAD + 5);
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5); pdf.setTextColor(...muted);
-        let iy = y + cPad + 10;
+        let iy = y + PAD + 11;
         itemLines[j].forEach(lines => {
-          pdf.text(lines, sx + cPad, iy);
-          iy += lines.length * skillLineH;
+          pdf.text(lines, sx + PAD, iy);
+          iy += lines.length * LH;
         });
       }
-      y += rowH + 2;
+      y += rowH + CARD_GAP;
     }
 
     // ===== LANGUAGES =====
     sectionTitle('Languages');
     const langW = (contentW - 9) / 4;
-    const langH = 16;
-    checkPage(langH + 6);
+    const langH = 18;
+    checkPage(langH + CARD_GAP);
     cvData.languages.forEach((lang, i) => {
       const lx = margin + i * (langW + 3);
       drawCard(lx, langW, langH);
@@ -477,12 +477,11 @@ const App = () => {
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...muted);
       pdf.text(lang.level, lx + langW / 2, y + langH / 2 + 4, { align: 'center' });
     });
-    y += langH + 3;
+    y += langH + CARD_GAP;
 
     // ===== WORKING STYLE =====
     sectionTitle('Working Style');
     const wsColW = (contentW - 4) / 2;
-    const wsPad = 4;
     for (let i = 0; i < cvData.workingStyle.length; i += 2) {
       const heights: number[] = [0, 0];
       const descLinesArr: string[][] = [[], []];
@@ -492,12 +491,12 @@ const App = () => {
         const [, ...rest] = item.split(': ');
         const desc = sanitize(rest.join(': '));
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5);
-        const descLines = pdf.splitTextToSize(desc, wsColW - 2 * wsPad);
+        const descLines = pdf.splitTextToSize(desc, wsColW - 2 * PAD);
         descLinesArr[j] = descLines;
-        heights[j] = wsPad + 8 + descLines.length * 3.5 + wsPad;
+        heights[j] = PAD + 9 + descLines.length * LH + PAD;
       }
       const rowH = Math.max(heights[0], heights[1]);
-      checkPage(rowH + 3);
+      checkPage(rowH + CARD_GAP);
       for (let j = 0; j < 2; j++) {
         const item = cvData.workingStyle[i + j];
         if (!item) break;
@@ -505,11 +504,11 @@ const App = () => {
         const wx = margin + j * (wsColW + 4);
         drawCardAt(wx, y, wsColW, rowH);
         pdf.setFont('helvetica', 'bold'); pdf.setFontSize(9); pdf.setTextColor(...white);
-        pdf.text(title, wx + wsPad, y + wsPad + 4);
+        pdf.text(title, wx + PAD, y + PAD + 5);
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5); pdf.setTextColor(...muted);
-        pdf.text(descLinesArr[j], wx + wsPad, y + wsPad + 9);
+        pdf.text(descLinesArr[j], wx + PAD, y + PAD + 11);
       }
-      y += rowH + 2;
+      y += rowH + CARD_GAP;
     }
 
     // ===== CONTINUOUS LEARNING =====
@@ -521,9 +520,8 @@ const App = () => {
     }, {} as Record<string, typeof cvData.books>);
     const catEntries = Object.entries(bookCategories);
     const bookColW = (contentW - (catEntries.length - 1) * 3) / catEntries.length;
-    const bookLineH = 3.2;
-    const bPad = 4;
-    // Pre-compute wrapped lines for each book in each category to get accurate heights
+    const bookLineH = LH;
+    const bPad = PAD;
     const catBookLines: { titleLines: string[]; author: string }[][] = catEntries.map(([, books]) => {
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8);
       return books.map(book => ({
@@ -532,28 +530,28 @@ const App = () => {
       }));
     });
     const catHeights = catBookLines.map(bookLines => {
-      let h = bPad + 8;
-      bookLines.forEach(({ titleLines }) => { h += titleLines.length * bookLineH + bookLineH + 1; });
+      let h = bPad + 9;
+      bookLines.forEach(({ titleLines }) => { h += titleLines.length * bookLineH + bookLineH + 2; });
       return h + bPad;
     });
     const bookCardH = Math.max(...catHeights);
-    checkPage(bookCardH + 3);
+    checkPage(bookCardH + CARD_GAP);
     catEntries.forEach(([category], i) => {
       const bx = margin + i * (bookColW + 3);
       drawCardAt(bx, y, bookColW, bookCardH);
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(9); pdf.setTextColor(...white);
-      pdf.text(category, bx + bPad, y + bPad + 4);
-      let by = y + bPad + 10;
+      pdf.text(category, bx + bPad, y + bPad + 5);
+      let by = y + bPad + 11;
       catBookLines[i].forEach(({ titleLines, author }) => {
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...white);
         pdf.text(titleLines, bx + bPad, by);
         by += titleLines.length * bookLineH;
         pdf.setFontSize(7); pdf.setTextColor(...muted);
         pdf.text(author, bx + bPad, by);
-        by += bookLineH + 1;
+        by += bookLineH + 2;
       });
     });
-    y += bookCardH + 3;
+    y += bookCardH + CARD_GAP;
 
     // ===== CONTACT (inline, no section title to save space) =====
     checkPage(8);
