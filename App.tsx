@@ -275,7 +275,7 @@ const App = () => {
   const roles = cvData.title.split(' | ');
   const cvRef = useRef<HTMLDivElement>(null);
 
-  const downloadPDF = () => {
+  const downloadPDF = async () => {
     const pdf = new jsPDF('p', 'mm', 'a4');
     const pageW = 210;
     const pageH = 297;
@@ -302,10 +302,11 @@ const App = () => {
       if (y + needed > pageH - margin) { pdf.addPage(); fillPage(); y = margin; }
     };
 
-    const drawCard = (x: number, w: number, h: number) => {
-      pdf.setFillColor(...dark); pdf.roundedRect(x, y, w, h, 2, 2, 'F');
-      pdf.setDrawColor(...border); pdf.roundedRect(x, y, w, h, 2, 2, 'S');
+    const drawCardAt = (x: number, cy: number, w: number, h: number) => {
+      pdf.setFillColor(...dark); pdf.roundedRect(x, cy, w, h, 2, 2, 'F');
+      pdf.setDrawColor(...border); pdf.roundedRect(x, cy, w, h, 2, 2, 'S');
     };
+    const drawCard = (x: number, w: number, h: number) => drawCardAt(x, y, w, h);
 
     const sectionTitle = (title: string) => {
       checkPage(14);
@@ -315,20 +316,42 @@ const App = () => {
       y += 14;
     };
 
-    // ===== HEADER =====
-    pdf.setFillColor(...dark); pdf.roundedRect(margin, y, contentW, 38, 3, 3, 'F');
-    pdf.setDrawColor(...border); pdf.roundedRect(margin, y, contentW, 38, 3, 3, 'S');
-    pdf.setFont('helvetica', 'bold'); pdf.setFontSize(22); pdf.setTextColor(...white);
-    pdf.text(cvData.name, margin + 6, y + 12);
-    pdf.setFont('helvetica', 'normal'); pdf.setFontSize(10); pdf.setTextColor(...green);
-    pdf.text(sanitize(cvData.title), margin + 6, y + 20);
-    pdf.setFontSize(9); pdf.setTextColor(...muted);
-    pdf.text(`${cvData.email}  |  ${cvData.phone}  |  ${cvData.location}`, margin + 6, y + 28);
+    // ===== HEADER (with profile photo) =====
+    const headerH = 42;
+    const photoSize = 30;
+    pdf.setFillColor(...dark); pdf.roundedRect(margin, y, contentW, headerH, 3, 3, 'F');
+    pdf.setDrawColor(...border); pdf.roundedRect(margin, y, contentW, headerH, 3, 3, 'S');
+
+    // Load and embed profile photo
+    try {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      await new Promise<void>((resolve, reject) => {
+        img.onload = () => resolve();
+        img.onerror = () => reject(new Error('Image load failed'));
+        img.src = cvData.profilePictureUrl;
+      });
+      const canvas = document.createElement('canvas');
+      canvas.width = 200; canvas.height = 200;
+      const ctx = canvas.getContext('2d')!;
+      ctx.beginPath(); ctx.arc(100, 100, 100, 0, Math.PI * 2); ctx.clip();
+      ctx.drawImage(img, 0, 0, 200, 200);
+      const dataUrl = canvas.toDataURL('image/png');
+      pdf.addImage(dataUrl, 'PNG', margin + 6, y + (headerH - photoSize) / 2, photoSize, photoSize);
+    } catch { /* skip photo if it fails to load */ }
+
+    const textX = margin + 6 + photoSize + 6;
+    pdf.setFont('helvetica', 'bold'); pdf.setFontSize(20); pdf.setTextColor(...white);
+    pdf.text(cvData.name, textX, y + 10);
+    pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(...green);
+    pdf.text(sanitize(cvData.title), textX, y + 17);
+    pdf.setFontSize(8); pdf.setTextColor(...muted);
+    pdf.text(`${cvData.email}  |  ${cvData.phone}  |  ${cvData.location}`, textX, y + 24);
     const linkedIn = cvData.socials.find(s => s.name === 'LinkedIn');
     const github = cvData.socials.find(s => s.name === 'GitHub');
     const linksText = [linkedIn && linkedIn.url, github && github.url].filter(Boolean).join('  |  ');
-    if (linksText) { pdf.text(linksText, margin + 6, y + 34); }
-    y += 44;
+    if (linksText) { pdf.text(linksText, textX, y + 30); }
+    y += headerH + 6;
 
     // ===== PROFILE =====
     sectionTitle('Profile');
@@ -401,9 +424,10 @@ const App = () => {
     sectionTitle('Core Skills');
     const skillColW = (contentW - 4) / 2;
     const skillLineH = 3.5;
+    const skillPad = 4; // bottom padding inside card
     pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5);
     for (let i = 0; i < cvData.skills.length; i += 2) {
-      const heights = [0, 0];
+      const heights: number[] = [0, 0];
       const itemLines: string[][][] = [[], []];
       for (let j = 0; j < 2; j++) {
         const cat = cvData.skills[i + j];
@@ -414,7 +438,7 @@ const App = () => {
           itemLines[j].push(lines);
           totalLines += lines.length;
         });
-        heights[j] = 10 + totalLines * skillLineH;
+        heights[j] = 12 + totalLines * skillLineH + skillPad;
       }
       const rowH = Math.max(heights[0], heights[1]);
       checkPage(rowH + 4);
@@ -422,7 +446,7 @@ const App = () => {
         const cat = cvData.skills[i + j];
         if (!cat) break;
         const sx = margin + j * (skillColW + 4);
-        drawCard(sx, skillColW, rowH);
+        drawCardAt(sx, y, skillColW, heights[j]);
         pdf.setFont('helvetica', 'bold'); pdf.setFontSize(10); pdf.setTextColor(...white);
         pdf.text(cat.name, sx + 4, y + 6);
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5); pdf.setTextColor(...muted);
@@ -452,30 +476,31 @@ const App = () => {
     // ===== WORKING STYLE =====
     sectionTitle('Working Style');
     const wsColW = (contentW - 4) / 2;
+    const wsPad = 4;
     for (let i = 0; i < cvData.workingStyle.length; i += 2) {
-      const heights = [0, 0];
+      const heights: number[] = [0, 0];
+      const descLinesArr: string[][] = [[], []];
       for (let j = 0; j < 2; j++) {
         const item = cvData.workingStyle[i + j];
         if (!item) break;
         const [, ...rest] = item.split(': ');
         const desc = sanitize(rest.join(': '));
         const descLines = pdf.splitTextToSize(desc, wsColW - 8);
-        heights[j] = 12 + descLines.length * 3.5;
+        descLinesArr[j] = descLines;
+        heights[j] = 12 + descLines.length * 3.5 + wsPad;
       }
       const rowH = Math.max(heights[0], heights[1]);
       checkPage(rowH + 4);
       for (let j = 0; j < 2; j++) {
         const item = cvData.workingStyle[i + j];
         if (!item) break;
-        const [title, ...rest] = item.split(': ');
-        const desc = sanitize(rest.join(': '));
+        const [title] = item.split(': ');
         const wx = margin + j * (wsColW + 4);
-        drawCard(wx, wsColW, rowH);
+        drawCardAt(wx, y, wsColW, heights[j]);
         pdf.setFont('helvetica', 'bold'); pdf.setFontSize(9); pdf.setTextColor(...white);
         pdf.text(title, wx + 4, y + 6);
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5); pdf.setTextColor(...muted);
-        const descLines = pdf.splitTextToSize(desc, wsColW - 8);
-        pdf.text(descLines, wx + 4, y + 11);
+        pdf.text(descLinesArr[j], wx + 4, y + 11);
       }
       y += rowH + 4;
     }
@@ -507,7 +532,7 @@ const App = () => {
     checkPage(bookCardH + 4);
     catEntries.forEach(([category], i) => {
       const bx = margin + i * (bookColW + 3);
-      drawCard(bx, bookColW, bookCardH);
+      drawCardAt(bx, y, bookColW, catHeights[i]);
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(9); pdf.setTextColor(...white);
       pdf.text(category, bx + 4, y + 6);
       let by = y + 12;
