@@ -627,15 +627,17 @@ const App = () => {
 
           {/* Key Achievements */}
           <Section title="Key Achievements" icon={<BriefcaseIcon />}>
-              <div className="space-y-3">
-                  {cvData.keyAchievements.map((achievement, index) => (
-                      <AnimatedItem key={index} delay={index * 100}>
-                          <div className="flex items-start gap-3">
-                              <span className="text-brand-green text-xl mt-1">•</span>
-                              <p className="text-base font-medium text-brand-text-light">{achievement}</p>
-                          </div>
-                      </AnimatedItem>
-                  ))}
+              <div className="bg-brand-dark border border-brand-border p-6 rounded-xl">
+                  <div className="space-y-4">
+                      {cvData.keyAchievements.map((achievement, index) => (
+                          <AnimatedItem key={index} delay={index * 100}>
+                              <div className="flex items-start gap-3">
+                                  <span className="text-brand-green text-xl font-bold">•</span>
+                                  <p className="text-base font-medium text-brand-text-light">{achievement}</p>
+                              </div>
+                          </AnimatedItem>
+                      ))}
+                  </div>
               </div>
           </Section>
 
