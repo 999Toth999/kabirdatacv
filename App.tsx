@@ -285,7 +285,7 @@ const App = () => {
     fillPage();
 
     const CARD_GAP = 8;   // vertical gap between cards (increased from 6)
-    const LH = 5.5;       // base line height for body text (increased from 5.0)
+    const LH = 6.0;       // base line height for body text (increased for better readability)
     const PAD = 6;        // inner card padding
     const PAD_TOP = 8;    // top padding for experience cards (more breathing room)
     const margin = 12;
@@ -302,7 +302,7 @@ const App = () => {
     const drawCard = (x: number, w: number, h: number) => drawCardAt(x, y, w, h);
 
     const sectionTitle = (title: string) => {
-      checkPage(12);
+      checkPage(20); // Increased to prevent orphan titles
       pdf.setFillColor(...green); pdf.rect(margin, y, 3, 7, 'F');
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(14); pdf.setTextColor(...white);
       pdf.text(title, margin + 7, y + 5.5);
