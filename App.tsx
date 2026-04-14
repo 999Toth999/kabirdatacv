@@ -56,7 +56,7 @@ const cvData: CVData = {
       { value: "4", label: "Languages" },
   ],
   keyAchievements: [
-    "Grew On The Ground Sound from 50 to 3,000+ users (6,000% growth) with $0 ad spend through organic content and email automation",
+    "Grew On The Ground Sound 6,000% (50→3K users) with $0 ad spend through organic content and email",
     "Built DJElite platform from 0→1: Supabase + React, OAuth, Stripe, real-time features",
     "Streamlined content workflows for OTGS and DJElite using scheduling tools and AI-assisted design, reducing posting time 60%",
   ],
