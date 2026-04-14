@@ -306,7 +306,7 @@ const App = () => {
       pdf.setFillColor(...green); pdf.rect(margin, y, 3, 7, 'F');
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(14); pdf.setTextColor(...white);
       pdf.text(title, margin + 7, y + 5.5);
-      y += 9;
+      y += 12; // Increased gap after title
     };
 
     // ===== HEADER (with profile photo) =====
@@ -440,6 +440,7 @@ const App = () => {
     }
 
     // ===== CORE SKILLS =====
+    checkPage(60); // Force new page if less than 60mm remaining
     sectionTitle('Core Skills');
     const skillColW = (contentW - 4) / 2;
     for (let i = 0; i < cvData.skills.length; i += 2) {
