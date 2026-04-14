@@ -47,21 +47,26 @@ const cvData: CVData = {
     { name: "Twitter", url: "https://x.com/", icon: TwitterIcon },
     { name: "Instagram", url: "https://instagram.com/kabirhasenm", icon: InstagramIcon },
   ],
-  profile: "Digital marketer and product builder with 6+ years growing B2C brands and building Supabase-powered platforms. Grew On The Ground Sound from dozens to 3,000+ users with zero ad spend through content, email, and community. Now focused on AI enablement, workflow automation, and full-stack development.",
+  profile: "Product builder and growth marketer. Scaled On The Ground Sound 6,000% (50→3K users, $0 ad spend) through content and automation. Built DJElite (Supabase + React) from architecture to launch. Now building AI-powered workflows and full-stack platforms.",
   stats: [
-      { value: "3K+", label: "Users Grown Organically" },
-      { value: "6+", label: "Years of Experience" },
-      { value: "6,000%", label: "Organic Growth, $0 Ad Spend" },
-      { value: "4", label: "Languages Spoken" },
+      { value: "6,000%", label: "Growth ($0 Ad Spend)" },
+      { value: "6+", label: "Years Experience" },
+      { value: "3K+", label: "Users Organically" },
+      { value: "4", label: "Languages" },
+  ],
+  keyAchievements: [
+    "Scaled On The Ground Sound 6,000% (50→3K users) with $0 ad spend in 4 years",
+    "Built DJElite platform from 0→1: Supabase + React, OAuth, Stripe, real-time features",
+    "Automated 60% of content workflows for agency clients using N8N and Claude Code",
   ],
   skills: [
-    { name: "AI & Technical", items: ["Supabase (Auth, Realtime, Edge Functions, Storage)", "Claude Code & AI Coding Assistants", "N8N Workflow Automation", "Telegram Bot Development & REST API Integration", "PostgreSQL, SQL & Data Modeling", "React, TypeScript, JavaScript", "Python (Automation, Data Analysis)", "API Integrations (OAuth, Stripe)", "Netlify, Vercel Deployment"] },
-    { name: "Digital Marketing", items: ["End-to-End Funnel Design (Attention → Trust → Conversion)", "Meta Ads Campaign Strategy & Audience Targeting", "Email Marketing, Sequences & Automation", "Organic Social Media Growth (Instagram, LinkedIn, Facebook, X, YouTube)", "Copywriting: Human, Non-Corporate, Psychology-Driven", "Analytics & Performance Optimization"] },
+    { name: "Build & Automate", items: ["Supabase (Auth, Realtime, PostgreSQL)", "React, TypeScript, JavaScript", "N8N Workflow Automation", "Claude Code & AI Assistants", "Python (Automation, Data Analysis)", "Telegram Bots & REST APIs", "OAuth, Stripe Integration", "Netlify, Vercel Deployment"] },
+    { name: "Grow & Convert", items: ["Meta Ads Strategy & Targeting", "Email Automation & Sequences", "Organic Social (Instagram, LinkedIn, X)", "Copywriting (Human, Psychology-Driven)", "Funnel Design (Attention → Trust → Conversion)", "Analytics & Optimization"] },
   ],
   experience: [
-    { company: "DJElite", role: "Founder & Head of Product", period: "2023 - 2025", location: "Amsterdam, Netherlands", description: ["Founded a global platform connecting DJs, promoters, and event organizers — full ownership from architecture to launch.", "Built on Supabase (Auth, Realtime, PostgreSQL) with React front-end deployed on Netlify/Vercel.", "Integrated OAuth, Stripe payments, and Ably for real-time features.", "Developed AI-driven workflows using Claude Code for content, email campaigns, and analytics."], icon: "🏢" },
-    { company: "Hasen Marketing Agency", role: "Founder & CEO", period: "2022 - 2025", location: "Barcelona, Spain", description: ["Managed multi-platform social media presence for clients including OTGS.io.", "Developed Meta Ads strategies for B2C clients including 2dayMind (AI medical company).", "Managing a 9,000+ follower Instagram account for an Indian culture brand.", "Produced video advertisements for Barcelona fashion brands including The Loft Studios.", "Built automated content posting workflows and social media scheduling systems."], icon: "🚀" },
-    { company: "On The Ground Sound", role: "Head of Marketing & Content", period: "2019 - 2024", location: "Amersfoort, Netherlands", description: ["Scaled user base from ~50 to 3,000+ members (6,000% growth) through organic social media, email sequences, and community — zero paid advertising.", "Built and executed email campaigns and automated sequences that converted interest into active members.", "Created all visual content: videos, DJ mix videos, flyers, and graphics.", "Business development: pitched clubs, venues, and event organizers to adopt the platform."], icon: "🎵" },
+    { company: "DJElite", role: "Founder & Head of Product", period: "2023 - 2025", location: "Amsterdam, Netherlands", description: ["Built DJElite from 0→1: global platform connecting DJs and promoters (Supabase, React, OAuth, Stripe).", "Architected real-time features (Ably) and AI-powered content workflows (Claude Code) for email campaigns.", "Deployed on Netlify/Vercel with full ownership: product, tech, and go-to-market."], icon: "🏢" },
+    { company: "Hasen Marketing Agency", role: "Founder & CEO", period: "2022 - 2025", location: "Barcelona, Spain", description: ["Managed social media for OTGS.io (Amersfoort) and DJElite — content strategy, organic growth, community engagement.", "Developed Meta Ads proposal for 2dayMind (AI medical startup) — audience segmentation, campaign structure, targeting strategy.", "Automated Threads posting for DJElite promotion; produced video ads for Barcelona fashion brands (The Loft Studios)."], icon: "🚀" },
+    { company: "On The Ground Sound", role: "Head of Marketing & Content", period: "2019 - 2024", location: "Amersfoort, Netherlands", description: ["Grew platform 6,000% (50→3K users) with $0 ad spend — organic social, email automation, SoundCloud outreach.", "Built email sequences that converted cold leads into active members; created all visual content (videos, flyers, graphics).", "Pitched 50+ clubs and venues to adopt platform; closed partnerships that drove 40% of new signups."], icon: "🎵" },
     { company: "The Loft Studios", role: "Video, Photography & Lighting Editor", period: "2020 - 2022", location: "Barcelona, Spain", description: ["Edited and color-graded video content for brand campaigns and social media advertising.", "Managed photography shoots including composition, lighting design, and post-production editing.", "Collaborated with creative teams to produce high-quality visual content optimized for digital platforms."], icon: "📸" },
     { company: "Intentional Ibiza", role: "Documentary Producer", period: "2019", location: "Ibiza, Spain", description: ["Produced and directed a documentary project capturing the cultural and creative scene in Ibiza."], icon: "🎬" },
   ],
@@ -364,6 +369,17 @@ const App = () => {
     });
     y += statH + CARD_GAP;
 
+    // ===== KEY ACHIEVEMENTS =====
+    sectionTitle('Key Achievements');
+    pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(...muted);
+    cvData.keyAchievements.forEach(achievement => {
+      const lines = pdf.splitTextToSize(sanitize(`• ${achievement}`), contentW - 8);
+      checkPage(lines.length * LH + 2);
+      pdf.text(lines, margin + 4, y);
+      y += lines.length * LH + 2;
+    });
+    y += CARD_GAP;
+
     // ===== EXPERIENCE =====
     sectionTitle('Experience');
     cvData.experience.forEach(exp => {
@@ -608,6 +624,20 @@ const App = () => {
                 ))}
             </div>
           </section>
+
+          {/* Key Achievements */}
+          <Section title="Key Achievements" icon={<BriefcaseIcon />}>
+              <div className="space-y-3">
+                  {cvData.keyAchievements.map((achievement, index) => (
+                      <AnimatedItem key={index} delay={index * 100}>
+                          <div className="flex items-start gap-3">
+                              <span className="text-brand-green text-xl mt-1">•</span>
+                              <p className="text-base font-medium text-brand-text-light">{achievement}</p>
+                          </div>
+                      </AnimatedItem>
+                  ))}
+              </div>
+          </Section>
 
           {/* Experience */}
           <Section title="Experience" icon={<BriefcaseIcon />}>

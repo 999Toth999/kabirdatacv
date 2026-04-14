@@ -9,6 +9,7 @@ export interface CVData {
   socials: SocialLink[];
   profile: string;
   stats: Stat[];
+  keyAchievements: string[];
   skills: SkillCategory[];
   experience: Experience[];
   education: Education[];
