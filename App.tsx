@@ -556,6 +556,7 @@ const App = () => {
     y += bookCardH + 5;
 
     // ===== CONTACT (inline, no section title to save space) =====
+    checkPage(8);
     y += 2;
     pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...muted);
     pdf.text(`Phone: ${cvData.phone}  |  Email: ${cvData.email}  |  ${cvData.address}`, pageW / 2, y, { align: 'center' });
