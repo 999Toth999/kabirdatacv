@@ -61,7 +61,7 @@ const cvData: CVData = {
     "Streamlined content workflows for OTGS and DJElite using scheduling tools and AI-assisted design, reducing posting time 60%",
   ],
   skills: [
-    { name: "Build & Automate", items: ["Supabase (Auth, Realtime, PostgreSQL)", "React, TypeScript, JavaScript", "N8N Workflow Automation", "CRM Integration & Automation", "Claude Code & AI Assistants", "Python (Automation, Data Analysis)", "Telegram Bots & REST APIs", "OAuth, Stripe Integration", "Netlify, Vercel Deployment"] },
+    { name: "Build & Automate", items: ["Supabase (Auth, Realtime, PostgreSQL)", "React, TypeScript, JavaScript", "N8N Workflow Automation", "CRM Integration & Automation", "Claude Code & AI Assistants", "Python (Automation, Data Analysis)", "OAuth, Stripe Integration"] },
     { name: "Grow & Convert", items: ["Meta Ads Strategy & Targeting", "Email Automation & Sequences", "Organic Social (Instagram, LinkedIn, X)", "Copywriting (Human, Psychology-Driven)", "Funnel Design (Attention → Trust → Conversion)", "Analytics & Optimization"] },
   ],
   experience: [
@@ -284,9 +284,10 @@ const App = () => {
     const fillPage = () => { pdf.setFillColor(...black); pdf.rect(0, 0, pageW, pageH, 'F'); };
     fillPage();
 
-    const CARD_GAP = 6;   // vertical gap between cards
-    const LH = 5.0;       // base line height for body text (mm)
+    const CARD_GAP = 8;   // vertical gap between cards (increased from 6)
+    const LH = 5.5;       // base line height for body text (increased from 5.0)
     const PAD = 6;        // inner card padding
+    const PAD_TOP = 8;    // top padding for experience cards (more breathing room)
     const margin = 12;
     const contentW = pageW - margin * 2;
 
@@ -355,15 +356,15 @@ const App = () => {
 
     // ===== STATS =====
     const statW = (contentW - 9) / 4;
-    const statH = 16;
+    const statH = 15;
     checkPage(statH + CARD_GAP);
     cvData.stats.forEach((stat, i) => {
       const sx = margin + i * (statW + 3);
       drawCard(sx, statW, statH);
-      pdf.setFont('helvetica', 'bold'); pdf.setFontSize(13); pdf.setTextColor(...green);
-      pdf.text(stat.value, sx + statW / 2, y + statH / 2, { align: 'center' });
+      pdf.setFont('helvetica', 'bold'); pdf.setFontSize(12); pdf.setTextColor(...green);
+      pdf.text(stat.value, sx + statW / 2, y + statH / 2 - 0.5, { align: 'center' });
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7); pdf.setTextColor(...muted);
-      pdf.text(stat.label, sx + statW / 2, y + statH / 2 + 4.5, { align: 'center' });
+      pdf.text(stat.label, sx + statW / 2, y + statH / 2 + 4, { align: 'center' });
     });
     y += statH + CARD_GAP;
 
@@ -385,11 +386,11 @@ const App = () => {
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8);
       const bulletLines = bullets.map(b => pdf.splitTextToSize(sanitize(`• ${b}`), contentW - 2 * PAD));
       const totalLines = bulletLines.reduce((sum, lines) => sum + lines.length, 0);
-      const cardH = PAD + 6 + 5.5 + 5 + 4 + totalLines * LH + PAD;
+      const cardH = PAD_TOP + 18 + totalLines * LH + PAD;
       checkPage(cardH + CARD_GAP);
       drawCard(margin, contentW, cardH);
       const cx = margin + PAD;
-      let cy = y + PAD + 6;
+      let cy = y + PAD_TOP + 4;
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(11); pdf.setTextColor(...white);
       pdf.text(exp.role, cx, cy);
       cy += 5.5;
@@ -398,7 +399,7 @@ const App = () => {
       cy += 5;
       pdf.setTextColor(...muted); pdf.setFontSize(8);
       pdf.text(`${exp.period}  •  ${exp.location}`, cx, cy);
-      cy += 6;
+      cy += 7;
       pdf.setTextColor(...muted); pdf.setFontSize(8);
       bulletLines.forEach(lines => {
         pdf.text(lines, cx, cy);
@@ -468,15 +469,15 @@ const App = () => {
     // ===== LANGUAGES =====
     sectionTitle('Languages');
     const langW = (contentW - 9) / 4;
-    const langH = 17;
+    const langH = 15;
     checkPage(langH + CARD_GAP);
     cvData.languages.forEach((lang, i) => {
       const lx = margin + i * (langW + 3);
       drawCard(lx, langW, langH);
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(10); pdf.setTextColor(...white);
-      pdf.text(lang.name, lx + langW / 2, y + langH / 2 - 1.5, { align: 'center' });
+      pdf.text(lang.name, lx + langW / 2, y + langH / 2 - 2, { align: 'center' });
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...muted);
-      pdf.text(lang.level, lx + langW / 2, y + langH / 2 + 4, { align: 'center' });
+      pdf.text(lang.level, lx + langW / 2, y + langH / 2 + 3.5, { align: 'center' });
     });
     y += langH + CARD_GAP;
 
