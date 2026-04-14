@@ -408,10 +408,11 @@ const App = () => {
       pdf.text(exp.role, cx + 8, cy);
       cy += 5.5;
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(...green);
-      pdf.text(exp.company, cx + 8, cy);
+      const cityName = exp.location.split(',')[0]; // Extract city from "City, Country"
+      pdf.text(`${exp.company} - ${cityName}`, cx + 8, cy);
       cy += 5;
       pdf.setTextColor(...muted); pdf.setFontSize(8);
-      pdf.text(`${exp.period}  •  ${exp.location}`, cx + 8, cy);
+      pdf.text(exp.period, cx + 8, cy);
       cy += 7;
       pdf.setTextColor(...muted); pdf.setFontSize(8);
       bulletLines.forEach(lines => {
