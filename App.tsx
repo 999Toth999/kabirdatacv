@@ -31,11 +31,12 @@ const LinkedInIcon: React.FC<{ className?: string }> = ({ className }) => (
 const BookIcon: React.FC<{ className?: string }> = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>;
 const GlobeIcon: React.FC<{ className?: string }> = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>;
 const UserIcon: React.FC<{ className?: string }> = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>;
+const TrendingUpIcon: React.FC<{ className?: string }> = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>;
 
 // --- DATA ---
 const cvData: CVData = {
   name: "Kabir Hasenbalg",
-  title: "AI Enablement Builder | Supabase & Automation Architect | Content × Tech",
+  title: "AI Enablement & Growth Automation Specialist",
   location: "Buenos Aires, Argentina",
   email: "kabirhasen@gmail.com",
   phone: "+54 91168143855",
@@ -47,7 +48,7 @@ const cvData: CVData = {
     { name: "Twitter", url: "https://x.com/", icon: TwitterIcon },
     { name: "Instagram", url: "https://instagram.com/kabirhasenm", icon: InstagramIcon },
   ],
-  profile: "Product builder and growth marketer. Scaled On The Ground Sound 6,000% (50→3K users, $0 ad spend) through content and automation. Built DJElite (Supabase + React) from architecture to launch. Now building AI-powered workflows and full-stack platforms.",
+  profile: "Product builder and growth marketer helping startups and coaching businesses scale through AI automation. Scaled On The Ground Sound 6,000% (50→3K users, $0 ad spend). Built DJElite (Supabase + React) from 0→1. Now focused on AI enablement, CRM automation, and content workflows for growth.",
   stats: [
       { value: "6,000%", label: "Growth ($0 Ad Spend)" },
       { value: "6+", label: "Years Experience" },
@@ -55,18 +56,21 @@ const cvData: CVData = {
       { value: "4", label: "Languages" },
   ],
   keyAchievements: [
-    "Scaled On The Ground Sound 6,000% (50→3K users) with $0 ad spend in 4 years",
+    "Scaled On The Ground Sound 6,000% (50→3K users) with $0 ad spend through organic content and email automation",
     "Built DJElite platform from 0→1: Supabase + React, OAuth, Stripe, real-time features",
-    "Automated 60% of content workflows for agency clients using N8N and Claude Code",
+    "Streamlined content workflows for OTGS and DJElite using scheduling tools and AI-assisted design, reducing posting time 60%",
   ],
   skills: [
-    { name: "Build & Automate", items: ["Supabase (Auth, Realtime, PostgreSQL)", "React, TypeScript, JavaScript", "N8N Workflow Automation", "Claude Code & AI Assistants", "Python (Automation, Data Analysis)", "Telegram Bots & REST APIs", "OAuth, Stripe Integration", "Netlify, Vercel Deployment"] },
+    { name: "Build & Automate", items: ["Supabase (Auth, Realtime, PostgreSQL)", "React, TypeScript, JavaScript", "N8N Workflow Automation", "CRM Integration & Automation", "Claude Code & AI Assistants", "Python (Automation, Data Analysis)", "Telegram Bots & REST APIs", "OAuth, Stripe Integration", "Netlify, Vercel Deployment"] },
     { name: "Grow & Convert", items: ["Meta Ads Strategy & Targeting", "Email Automation & Sequences", "Organic Social (Instagram, LinkedIn, X)", "Copywriting (Human, Psychology-Driven)", "Funnel Design (Attention → Trust → Conversion)", "Analytics & Optimization"] },
   ],
   experience: [
-    { company: "DJElite", role: "Founder & Head of Product", period: "2023 - 2025", location: "Amsterdam, Netherlands", description: ["Built DJElite from 0→1: global platform connecting DJs and promoters (Supabase, React, OAuth, Stripe).", "Architected real-time features (Ably) and AI-powered content workflows (Claude Code) for email campaigns.", "Deployed on Netlify/Vercel with full ownership: product, tech, and go-to-market."], icon: "🏢" },
-    { company: "Hasen Marketing Agency", role: "Founder & CEO", period: "2022 - 2025", location: "Barcelona, Spain", description: ["Managed social media for OTGS.io (Amersfoort) and DJElite — content strategy, organic growth, community engagement.", "Developed Meta Ads proposal for 2dayMind (AI medical startup) — audience segmentation, campaign structure, targeting strategy.", "Automated Threads posting for DJElite promotion; produced video ads for Barcelona fashion brands (The Loft Studios)."], icon: "🚀" },
-    { company: "On The Ground Sound", role: "Head of Marketing & Content", period: "2019 - 2024", location: "Amersfoort, Netherlands", description: ["Grew platform 6,000% (50→3K users) with $0 ad spend — organic social, email automation, SoundCloud outreach.", "Built email sequences that converted cold leads into active members; created all visual content (videos, flyers, graphics).", "Pitched 50+ clubs and venues to adopt platform; closed partnerships that drove 40% of new signups."], icon: "🎵" },
+    { company: "DJElite", role: "Founder & Head of Product", period: "2023 - 2025", location: "Amsterdam, Netherlands", description: ["Built DJElite from 0→1: global platform connecting DJs and promoters (Supabase, React, OAuth, Stripe).", "Architected real-time features (Ably) and AI-powered content workflows (Claude Code) for email campaigns.", "Created and sold DJ guides as lead magnets and info-products (BuyMeACoffee) — 4 sales, drove signups to platform.", "Deployed on Netlify/Vercel with full ownership: product, tech, and go-to-market."], icon: "🏢" },
+    { company: "Hasen Marketing Agency", role: "Founder & CEO", period: "2022 - 2025", location: "Barcelona, Spain", description: ["Managed social media for OTGS.io (Amersfoort) and DJElite — content strategy, organic growth, community engagement.", "Developed Meta Ads proposal for 2dayMind (AI medical startup) — audience segmentation, campaign structure, targeting strategy.", "Streamlined content posting for DJElite using Buffer and AI-assisted design; produced video ads for Barcelona fashion brands."], icon: "🚀" },
+    { company: "On The Ground Sound", role: "Head of Marketing & Content", period: "2019 - 2024", location: "Amersfoort, Netherlands", description: ["Grew community platform 6,000% (50→3K users) with $0 ad spend — email sequences, organic social, and automated onboarding.", "Built email sequences that converted cold leads into active members; created all visual content (videos, flyers, graphics).", "Pitched 50+ clubs and venues to adopt platform; closed partnerships that drove 40% of new signups."], icon: "🎵" },
+    { company: "The Loft Studios", role: "Video, Photography & Lighting Editor", period: "2020 - 2022", location: "Barcelona, Spain", description: ["Edited and color-graded video content for brand campaigns and social media advertising.", "Managed photography shoots including composition, lighting design, and post-production editing.", "Collaborated with creative teams to produce high-quality visual content optimized for digital platforms."], icon: "📸" },
+    { company: "Intentional Ibiza", role: "Documentary Producer", period: "2019", location: "Ibiza, Spain", description: ["Produced and edited documentary about wellness retreat in Ibiza; created music videos for Barcelona artists."], icon: "🎬" },
+  ],
     { company: "The Loft Studios", role: "Video, Photography & Lighting Editor", period: "2020 - 2022", location: "Barcelona, Spain", description: ["Edited and color-graded video content for brand campaigns and social media advertising.", "Managed photography shoots including composition, lighting design, and post-production editing.", "Collaborated with creative teams to produce high-quality visual content optimized for digital platforms."], icon: "📸" },
     { company: "Intentional Ibiza", role: "Documentary Producer", period: "2019", location: "Ibiza, Spain", description: ["Produced and directed a documentary project capturing the cultural and creative scene in Ibiza."], icon: "🎬" },
   ],
@@ -88,9 +92,9 @@ const cvData: CVData = {
     { title: "Pitch Anything", author: "Oren Klaff", category: "Business" },
     { title: "The 4-Hour Work Week", author: "Tim Ferriss", category: "Business" },
     { title: "Blue Ocean Strategy", author: "W. Chan Kim", category: "Business" },
+    { title: "7 Habits of Highly Effective People", author: "Stephen Covey", category: "Mindset" },
     { title: "How to Win Friends and Influence People", author: "Dale Carnegie", category: "Mindset" },
     { title: "The Psychology of Money", author: "Morgan Housel", category: "Mindset" },
-    { title: "Man's Search for Meaning", author: "Viktor Frankl", category: "Mindset" },
   ],
 };
 
@@ -617,7 +621,7 @@ const App = () => {
                 {cvData.stats.map((stat, index) => (
                     <AnimatedItem key={stat.label} delay={300 + index * 100}>
                         <div className="bg-brand-dark border border-brand-border p-6 rounded-lg text-center">
-                            <p className="text-5xl font-display font-bold text-brand-green">{stat.value}</p>
+                            <p className="text-4xl font-display font-bold text-brand-green">{stat.value}</p>
                             <p className="text-sm mt-1">{stat.label}</p>
                         </div>
                     </AnimatedItem>
@@ -626,7 +630,7 @@ const App = () => {
           </section>
 
           {/* Key Achievements */}
-          <Section title="Key Achievements" icon={<BriefcaseIcon />}>
+          <Section title="Key Achievements" icon={<TrendingUpIcon />}>
               <div className="bg-brand-dark border border-brand-border p-6 rounded-xl">
                   <div className="space-y-4">
                       {cvData.keyAchievements.map((achievement, index) => (
