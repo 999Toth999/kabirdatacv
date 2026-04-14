@@ -401,8 +401,8 @@ const App = () => {
       const cx = margin + PAD;
       let cy = y + PAD_TOP + 4;
       // Add icon indicator
-      const iconMap: Record<string, string> = { '🏢': '★', '🚀': '»', '🎵': '♪', '📸': '◆', '🎬': '►' };
-      const iconSymbol = iconMap[exp.icon] || '■';
+      const iconMap: Record<string, string> = { '🏢': '*', '🚀': '>>', '🎵': '~', '📸': '#', '🎬': '>' };
+      const iconSymbol = iconMap[exp.icon] || '+';
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(9); pdf.setTextColor(...green);
       pdf.text(iconSymbol, cx, cy);
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(11); pdf.setTextColor(...white);
