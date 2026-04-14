@@ -69,7 +69,7 @@ const cvData: CVData = {
     { company: "Hasen Marketing Agency", role: "Founder & CEO", period: "2022 - 2025", location: "Barcelona, Spain", description: ["Managed social media for OTGS.io (Amersfoort) and DJElite — content strategy, organic growth, community engagement.", "Developed Meta Ads proposal for 2dayMind (AI medical startup) — audience segmentation, campaign structure, targeting strategy.", "Streamlined content posting for DJElite using Buffer and AI-assisted design; produced video ads for Barcelona fashion brands."], icon: "🚀" },
     { company: "On The Ground Sound", role: "Head of Marketing & Content", period: "2019 - 2024", location: "Amersfoort, Netherlands", description: ["Grew community platform 6,000% (50→3K users) with $0 ad spend — email sequences, organic social, and automated onboarding.", "Built email sequences that converted cold leads into active members; created all visual content (videos, flyers, graphics).", "Pitched 50+ clubs and venues to adopt platform; closed partnerships that drove 40% of new signups."], icon: "🎵" },
     { company: "The Loft Studios", role: "Video, Photography & Lighting Editor", period: "2020 - 2022", location: "Barcelona, Spain", description: ["Edited and color-graded video content for brand campaigns and social media advertising.", "Managed photography shoots including composition, lighting design, and post-production editing.", "Collaborated with creative teams to produce high-quality visual content optimized for digital platforms."], icon: "📸" },
-    { company: "Intentional Ibiza", role: "Documentary Producer", period: "2019", location: "Ibiza, Spain", description: ["Produced and edited documentary about wellness retreat in Ibiza; created music videos for Barcelona artists."], icon: "🎬" },
+    { company: "Intentional Ibiza", role: "Documentary Producer", period: "2019", location: "Ibiza, Spain", description: ["Produced and edited documentary about wellness retreat in Ibiza.", "Created music videos for Barcelona artists."], icon: "🎬" },
   ],
   education: [
     { degree: "CS50: Intro to Computer Science", institution: "Harvard University", period: "Ongoing" },
@@ -401,8 +401,8 @@ const App = () => {
       const cx = margin + PAD;
       let cy = y + PAD_TOP + 4;
       // Add icon indicator
-      const iconMap: Record<string, string> = { '🏢': '[B]', '🚀': '[A]', '🎵': '[M]', '📸': '[P]', '🎬': '[F]' };
-      const iconSymbol = iconMap[exp.icon] || '[*]';
+      const iconMap: Record<string, string> = { '🏢': '★', '🚀': '»', '🎵': '♪', '📸': '◆', '🎬': '►' };
+      const iconSymbol = iconMap[exp.icon] || '■';
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(9); pdf.setTextColor(...green);
       pdf.text(iconSymbol, cx, cy);
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(11); pdf.setTextColor(...white);
