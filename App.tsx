@@ -47,23 +47,21 @@ const cvData: CVData = {
     { name: "Twitter", url: "https://x.com/", icon: TwitterIcon },
     { name: "Instagram", url: "https://instagram.com/kabirhasenm", icon: InstagramIcon },
   ],
-  profile: "Strategic digital marketer and product builder with 6+ years of experience building B2C brands and Supabase-powered platforms from the ground up. Grew On The Ground Sound from dozens to 3,000+ users organically with zero ad spend through integrated content, email, and community funnels. Now specializing in AI enablement, workflow automation (N8N, Hermes Agent), and full-stack development. Operates autonomously with a founder's mindset — focused on ownership, strategy, and shipping end-to-end.",
+  profile: "Digital marketer and product builder with 6+ years growing B2C brands and building Supabase-powered platforms. Grew On The Ground Sound from dozens to 3,000+ users with zero ad spend through content, email, and community. Now focused on AI enablement, workflow automation, and full-stack development.",
   stats: [
       { value: "3K+", label: "Users Grown Organically" },
       { value: "6+", label: "Years of Experience" },
-      { value: "$0", label: "Ad Spend for 6,000% Growth" },
+      { value: "6,000%", label: "Organic Growth, $0 Ad Spend" },
       { value: "4", label: "Languages Spoken" },
   ],
   skills: [
-    { name: "AI & Technical", items: ["Supabase (Auth, Realtime, Edge Functions, Storage)", "Claude Code & AI Coding Assistants (Amazon Q, Kiro-CLI, Codebuff)", "Hermes Agent (Custom Skills & Email Marketing Automation)", "N8N Workflow Automation", "Telegram Bot Development & REST API Integration", "PostgreSQL, Neon.tech, SQL & Data Modeling", "React, TypeScript, JavaScript", "Python (Data Analysis, Automation, Bots)", "API Integrations (OAuth, Stripe, Ably)", "Netlify, Vercel Deployment", "Zapier, Notion API, Airtable", "Git/GitHub Version Control"] },
-    { name: "Digital Marketing", items: ["End-to-End Funnel Design (Attention → Trust → Conversion)", "Meta Ads Campaign Strategy & Audience Targeting", "Email Marketing, Sequences & Automation", "Organic Social Media Growth (Instagram, LinkedIn, Facebook, X, YouTube)", "Copywriting: Human, Non-Corporate, Psychology-Driven", "CRM & Marketing Automation Pipelines", "Analytics & Performance Optimization"] },
-    { name: "Content Production", items: ["Video Production & Editing (Adobe Premiere, After Effects)", "Studio Photography & Lighting", "Graphic Design (Photoshop, Canva)", "Documentary Production", "AI-Assisted Content Systems (Claude, GPT)"] },
-    { name: "Business & Strategy", items: ["Product Strategy & Ecosystem Design", "Community Building & Growth", "Brand Positioning & Go-to-Market", "Stakeholder Communication", "Rapid Niche Adoption (Music, Fashion, AI Medical, Travel)"] }
+    { name: "AI & Technical", items: ["Supabase (Auth, Realtime, Edge Functions, Storage)", "Claude Code & AI Coding Assistants", "N8N Workflow Automation", "Telegram Bot Development & REST API Integration", "PostgreSQL, SQL & Data Modeling", "React, TypeScript, JavaScript", "Python (Automation, Data Analysis)", "API Integrations (OAuth, Stripe)", "Netlify, Vercel Deployment"] },
+    { name: "Digital Marketing", items: ["End-to-End Funnel Design (Attention → Trust → Conversion)", "Meta Ads Campaign Strategy & Audience Targeting", "Email Marketing, Sequences & Automation", "Organic Social Media Growth (Instagram, LinkedIn, Facebook, X, YouTube)", "Copywriting: Human, Non-Corporate, Psychology-Driven", "Analytics & Performance Optimization"] },
   ],
   experience: [
-    { company: "DJElite", role: "Founder & Head of Product", period: "2023 - 2025", location: "Amsterdam, Netherlands", description: ["Founded a global platform connecting DJs, promoters, and event organizers — full ownership from architecture to launch.", "Built on Supabase (Auth, Realtime, PostgreSQL) with React front-end deployed on Netlify/Vercel.", "Integrated OAuth, Stripe payments, and Ably for real-time features.", "Developed AI-driven workflows using Claude Code and automation tools for content, email campaigns, and analytics.", "Built Telegram bots connecting as proxy to Kiro-CLI via local REST API for automated task workflows.", "Automated repetitive email marketing tasks using Hermes Agent with custom-built skills."], icon: "🏢" },
-    { company: "Hasen Marketing Agency", role: "Founder & CEO", period: "2022 - 2025", location: "Barcelona, Spain", description: ["Managed multi-platform social media presence (LinkedIn, Instagram, X, YouTube, Facebook) for clients including OTGS.io.", "Developed Meta Ads strategies for B2C clients including 2dayMind (AI medical company), designing audience targeting and campaign structure.", "Currently managing a 9,000+ follower Instagram account for a local Indian culture brand.", "Produced video advertisements for Barcelona fashion brands including The Loft Studios.", "Built automated content posting workflows and social media scheduling systems.", "Currently managing a Meta Ads campaign for a small travel tours business."], icon: "🚀" },
-    { company: "On The Ground Sound", role: "Head of Marketing & Content", period: "2019 - 2024", location: "Amersfoort, Netherlands", description: ["Scaled user base from ~50 to 3,000+ members (6,000% growth) through strategic organic social media, email sequences, and community building — with zero paid advertising.", "Managed complete social media ecosystem (Instagram, Facebook, LinkedIn) with content strategy designed to move users through awareness → trust → signup funnel.", "Built and executed email marketing campaigns and automated sequences that converted interest into active platform members.", "Created all visual content: promotional videos, DJ mix videos, flyers, and graphics using Canva, Photoshop, and After Effects.", "Drove community growth through direct outreach on SoundCloud — messaging artists, commenting on tracks, and onboarding users to the platform.", "Business development: pitched clubs, venues, and event organizers to adopt the platform for music events.", "Influencer outreach: connected with established DJs to increase platform visibility and engagement."], icon: "🎵" },
+    { company: "DJElite", role: "Founder & Head of Product", period: "2023 - 2025", location: "Amsterdam, Netherlands", description: ["Founded a global platform connecting DJs, promoters, and event organizers — full ownership from architecture to launch.", "Built on Supabase (Auth, Realtime, PostgreSQL) with React front-end deployed on Netlify/Vercel.", "Integrated OAuth, Stripe payments, and Ably for real-time features.", "Developed AI-driven workflows using Claude Code for content, email campaigns, and analytics."], icon: "🏢" },
+    { company: "Hasen Marketing Agency", role: "Founder & CEO", period: "2022 - 2025", location: "Barcelona, Spain", description: ["Managed multi-platform social media presence for clients including OTGS.io.", "Developed Meta Ads strategies for B2C clients including 2dayMind (AI medical company).", "Managing a 9,000+ follower Instagram account for an Indian culture brand.", "Produced video advertisements for Barcelona fashion brands including The Loft Studios.", "Built automated content posting workflows and social media scheduling systems."], icon: "🚀" },
+    { company: "On The Ground Sound", role: "Head of Marketing & Content", period: "2019 - 2024", location: "Amersfoort, Netherlands", description: ["Scaled user base from ~50 to 3,000+ members (6,000% growth) through organic social media, email sequences, and community — zero paid advertising.", "Built and executed email campaigns and automated sequences that converted interest into active members.", "Created all visual content: videos, DJ mix videos, flyers, and graphics.", "Business development: pitched clubs, venues, and event organizers to adopt the platform."], icon: "🎵" },
     { company: "The Loft Studios", role: "Video, Photography & Lighting Editor", period: "2020 - 2022", location: "Barcelona, Spain", description: ["Edited and color-graded video content for brand campaigns and social media advertising.", "Managed photography shoots including composition, lighting design, and post-production editing.", "Collaborated with creative teams to produce high-quality visual content optimized for digital platforms."], icon: "📸" },
     { company: "Intentional Ibiza", role: "Documentary Producer", period: "2019", location: "Ibiza, Spain", description: ["Produced and directed a documentary project capturing the cultural and creative scene in Ibiza."], icon: "🎬" },
   ],
@@ -80,26 +78,13 @@ const cvData: CVData = {
     { name: "Portuguese", level: "Professional" },
     { name: "Italian", level: "Professional" },
   ],
-  workingStyle: [
-    "Autonomous Operator: Comfortable taking full ownership as first or solo marketer; experienced setting own deadlines and maintaining accountability.",
-    "Rapid Niche Adoption: Proven ability to learn new industries fast (music, fashion, AI medical, Indian culture, travel) and quickly adapt language, positioning, and customer psychology.",
-    "Funnel-First Thinking: Designs marketing around complete customer journeys (attention → trust → conversion), not isolated tactics or channels.",
-    "Anti-Corporate Communication: Intentionally writes human, clear copy that builds trust; actively avoids buzzwords and corporate jargon.",
-    "Outcome-Focused: Aligns all marketing activities with real business results (bookings, sales, revenue), not just clicks or impressions.",
-    "AI-Native Workflow: Integrates AI tools (Claude Code, Hermes Agent, N8N) into daily workflows for automation, content, and development.",
-  ],
+  workingStyle: [],
   books: [
-    { title: "Pitch Anything", author: "Oren Klaff", category: "Business & Strategy" },
-    { title: "Blue Ocean Strategy", author: "W. Chan Kim", category: "Business & Strategy" },
-    { title: "The 4-Hour Work Week", author: "Tim Ferriss", category: "Business & Strategy" },
-    { title: "The Psychology of Selling", author: "Brian Tracy", category: "Business & Strategy" },
-    { title: "Think and Grow Rich", author: "Napoleon Hill", category: "Business & Strategy" },
-    { title: "7 Habits of Highly Effective People", author: "Stephen Covey", category: "Leadership & Growth" },
-    { title: "How to Win Friends and Influence People", author: "Dale Carnegie", category: "Leadership & Growth" },
-    { title: "Awaken the Giant Within", author: "Tony Robbins", category: "Leadership & Growth" },
-    { title: "The Art of War", author: "Sun Tzu", category: "Leadership & Growth" },
+    { title: "Pitch Anything", author: "Oren Klaff", category: "Business" },
+    { title: "The 4-Hour Work Week", author: "Tim Ferriss", category: "Business" },
+    { title: "Blue Ocean Strategy", author: "W. Chan Kim", category: "Business" },
+    { title: "How to Win Friends and Influence People", author: "Dale Carnegie", category: "Mindset" },
     { title: "The Psychology of Money", author: "Morgan Housel", category: "Mindset" },
-    { title: "The Subtle Art of Not Giving a F***", author: "Mark Manson", category: "Mindset" },
     { title: "Man's Search for Meaning", author: "Viktor Frankl", category: "Mindset" },
   ],
 };
@@ -482,6 +467,7 @@ const App = () => {
     y += langH + CARD_GAP;
 
     // ===== WORKING STYLE =====
+    if (cvData.workingStyle.length > 0) {
     sectionTitle('Working Style');
     const wsColW = (contentW - 4) / 2;
     for (let i = 0; i < cvData.workingStyle.length; i += 2) {
@@ -512,6 +498,7 @@ const App = () => {
       }
       y += rowH + CARD_GAP;
     }
+    } // end workingStyle
 
     // ===== CONTINUOUS LEARNING =====
     sectionTitle('Continuous Learning');
@@ -673,6 +660,7 @@ const App = () => {
           </Section>
 
           {/* Working Style */}
+          {cvData.workingStyle.length > 0 && (
           <Section title="Working Style" icon={<UserIcon />}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {cvData.workingStyle.map((item, index) => {
@@ -689,6 +677,7 @@ const App = () => {
                   })}
               </div>
           </Section>
+          )}
 
           {/* Continuous Learning */}
           <Section title="Continuous Learning" icon={<BookIcon />}>
