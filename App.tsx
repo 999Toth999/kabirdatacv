@@ -279,9 +279,7 @@ const App = () => {
     const pdf = new jsPDF('p', 'mm', 'a4');
     const pageW = 210;
     const pageH = 297;
-    const margin = 15;
-    const contentW = pageW - margin * 2;
-    let y = margin;
+    let y = 12;
 
     // Brand colors (RGB)
     const black: [number, number, number] = [0, 0, 0];
@@ -298,9 +296,11 @@ const App = () => {
     const fillPage = () => { pdf.setFillColor(...black); pdf.rect(0, 0, pageW, pageH, 'F'); };
     fillPage();
 
-    const CARD_GAP = 4;   // vertical gap between cards
-    const LH = 4.5;       // base line height for body text (mm)
-    const PAD = 5;        // inner card padding
+    const CARD_GAP = 6;   // vertical gap between cards
+    const LH = 5.0;       // base line height for body text (mm)
+    const PAD = 6;        // inner card padding
+    const margin = 12;
+    const contentW = pageW - margin * 2;
 
     const checkPage = (needed: number) => {
       if (y + needed > pageH - margin) { pdf.addPage(); fillPage(); y = margin; }
@@ -317,12 +317,12 @@ const App = () => {
       pdf.setFillColor(...green); pdf.rect(margin, y, 3, 7, 'F');
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(14); pdf.setTextColor(...white);
       pdf.text(title, margin + 7, y + 5.5);
-      y += 11;
+      y += 9;
     };
 
     // ===== HEADER (with profile photo) =====
-    const headerH = 42;
-    const photoSize = 30;
+    const headerH = 38;
+    const photoSize = 28;
     pdf.setFillColor(...dark); pdf.roundedRect(margin, y, contentW, headerH, 3, 3, 'F');
     pdf.setDrawColor(...border); pdf.roundedRect(margin, y, contentW, headerH, 3, 3, 'S');
 
@@ -345,17 +345,17 @@ const App = () => {
     } catch { /* skip photo if it fails to load */ }
 
     const textX = margin + 6 + photoSize + 6;
-    pdf.setFont('helvetica', 'bold'); pdf.setFontSize(20); pdf.setTextColor(...white);
-    pdf.text(cvData.name, textX, y + 10);
+    pdf.setFont('helvetica', 'bold'); pdf.setFontSize(18); pdf.setTextColor(...white);
+    pdf.text(cvData.name, textX, y + 9);
     pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(...green);
-    pdf.text(sanitize(cvData.title), textX, y + 17);
+    pdf.text(sanitize(cvData.title), textX, y + 15.5);
     pdf.setFontSize(8); pdf.setTextColor(...muted);
-    pdf.text(`${cvData.email}  |  ${cvData.phone}  |  ${cvData.location}`, textX, y + 24);
+    pdf.text(`${cvData.email}  |  ${cvData.phone}  |  ${cvData.location}`, textX, y + 22);
     const linkedIn = cvData.socials.find(s => s.name === 'LinkedIn');
     const github = cvData.socials.find(s => s.name === 'GitHub');
     const linksText = [linkedIn && linkedIn.url, github && github.url].filter(Boolean).join('  |  ');
-    if (linksText) { pdf.text(linksText, textX, y + 30); }
-    y += headerH + 4;
+    if (linksText) { pdf.text(linksText, textX, y + 28); }
+    y += headerH + 5;
 
     // ===== PROFILE =====
     sectionTitle('Profile');
@@ -363,19 +363,19 @@ const App = () => {
     const profileLines = pdf.splitTextToSize(sanitize(cvData.profile), contentW - 8);
     checkPage(profileLines.length * LH + 4);
     pdf.text(profileLines, margin + 4, y);
-    y += profileLines.length * LH + CARD_GAP;
+    y += profileLines.length * LH + 5;
 
     // ===== STATS =====
     const statW = (contentW - 9) / 4;
-    const statH = 18;
+    const statH = 16;
     checkPage(statH + CARD_GAP);
     cvData.stats.forEach((stat, i) => {
       const sx = margin + i * (statW + 3);
       drawCard(sx, statW, statH);
-      pdf.setFont('helvetica', 'bold'); pdf.setFontSize(14); pdf.setTextColor(...green);
-      pdf.text(stat.value, sx + statW / 2, y + statH / 2 - 1, { align: 'center' });
+      pdf.setFont('helvetica', 'bold'); pdf.setFontSize(13); pdf.setTextColor(...green);
+      pdf.text(stat.value, sx + statW / 2, y + statH / 2, { align: 'center' });
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7); pdf.setTextColor(...muted);
-      pdf.text(stat.label, sx + statW / 2, y + statH / 2 + 4, { align: 'center' });
+      pdf.text(stat.label, sx + statW / 2, y + statH / 2 + 4.5, { align: 'center' });
     });
     y += statH + CARD_GAP;
 
@@ -386,18 +386,20 @@ const App = () => {
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8);
       const bulletLines = bullets.map(b => pdf.splitTextToSize(sanitize(`• ${b}`), contentW - 2 * PAD));
       const totalLines = bulletLines.reduce((sum, lines) => sum + lines.length, 0);
-      const cardH = PAD + 16 + totalLines * LH + PAD;
+      const cardH = PAD + 6 + 5.5 + 5 + 4 + totalLines * LH + PAD;
       checkPage(cardH + CARD_GAP);
       drawCard(margin, contentW, cardH);
       const cx = margin + PAD;
-      let cy = y + PAD + 4;
+      let cy = y + PAD + 6;
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(11); pdf.setTextColor(...white);
       pdf.text(exp.role, cx, cy);
+      cy += 5.5;
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(...green);
-      pdf.text(exp.company, cx, cy + 5.5);
+      pdf.text(exp.company, cx, cy);
+      cy += 5;
       pdf.setTextColor(...muted); pdf.setFontSize(8);
-      pdf.text(`${exp.period}  •  ${exp.location}`, cx, cy + 11);
-      cy += 16;
+      pdf.text(`${exp.period}  •  ${exp.location}`, cx, cy);
+      cy += 6;
       pdf.setTextColor(...muted); pdf.setFontSize(8);
       bulletLines.forEach(lines => {
         pdf.text(lines, cx, cy);
@@ -409,8 +411,8 @@ const App = () => {
     // ===== EDUCATION =====
     sectionTitle('Education');
     const eduColW = (contentW - 4) / 2;
-    const eduCardH = 18;
     for (let i = 0; i < cvData.education.length; i += 2) {
+      const eduCardH = 20;
       checkPage(eduCardH + CARD_GAP);
       for (let j = 0; j < 2; j++) {
         const edu = cvData.education[i + j];
@@ -418,11 +420,11 @@ const App = () => {
         const ex = margin + j * (eduColW + 4);
         drawCard(ex, eduColW, eduCardH);
         pdf.setFont('helvetica', 'bold'); pdf.setFontSize(9); pdf.setTextColor(...white);
-        pdf.text(edu.degree, ex + PAD, y + PAD + 3, { maxWidth: eduColW - 2 * PAD - 20 });
+        pdf.text(edu.degree, ex + PAD, y + PAD + 4, { maxWidth: eduColW - 2 * PAD - 18 });
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...muted);
-        pdf.text(edu.institution, ex + PAD, y + PAD + 9);
+        pdf.text(edu.institution, ex + PAD, y + PAD + 10);
         pdf.setFontSize(7); pdf.setTextColor(...green);
-        pdf.text(edu.period, ex + eduColW - PAD, y + PAD + 3, { align: 'right' });
+        pdf.text(edu.period, ex + eduColW - PAD, y + PAD + 4, { align: 'right' });
       }
       y += eduCardH + CARD_GAP;
     }
@@ -430,7 +432,6 @@ const App = () => {
     // ===== CORE SKILLS =====
     sectionTitle('Core Skills');
     const skillColW = (contentW - 4) / 2;
-    pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5);
     for (let i = 0; i < cvData.skills.length; i += 2) {
       const heights: number[] = [0, 0];
       const itemLines: string[][][] = [[], []];
@@ -438,12 +439,13 @@ const App = () => {
         const cat = cvData.skills[i + j];
         if (!cat) break;
         let totalLines = 0;
+        pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8);
         cat.items.forEach(item => {
           const lines = pdf.splitTextToSize(sanitize(`• ${item}`), skillColW - 2 * PAD);
           itemLines[j].push(lines);
           totalLines += lines.length;
         });
-        heights[j] = PAD + 9 + totalLines * LH + PAD;
+        heights[j] = PAD + 10 + totalLines * LH + PAD;
       }
       const rowH = Math.max(heights[0], heights[1]);
       checkPage(rowH + CARD_GAP);
@@ -454,8 +456,8 @@ const App = () => {
         drawCardAt(sx, y, skillColW, rowH);
         pdf.setFont('helvetica', 'bold'); pdf.setFontSize(10); pdf.setTextColor(...white);
         pdf.text(cat.name, sx + PAD, y + PAD + 5);
-        pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5); pdf.setTextColor(...muted);
-        let iy = y + PAD + 11;
+        pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...muted);
+        let iy = y + PAD + 12;
         itemLines[j].forEach(lines => {
           pdf.text(lines, sx + PAD, iy);
           iy += lines.length * LH;
@@ -467,13 +469,13 @@ const App = () => {
     // ===== LANGUAGES =====
     sectionTitle('Languages');
     const langW = (contentW - 9) / 4;
-    const langH = 18;
+    const langH = 17;
     checkPage(langH + CARD_GAP);
     cvData.languages.forEach((lang, i) => {
       const lx = margin + i * (langW + 3);
       drawCard(lx, langW, langH);
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(10); pdf.setTextColor(...white);
-      pdf.text(lang.name, lx + langW / 2, y + langH / 2 - 1, { align: 'center' });
+      pdf.text(lang.name, lx + langW / 2, y + langH / 2 - 1.5, { align: 'center' });
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...muted);
       pdf.text(lang.level, lx + langW / 2, y + langH / 2 + 4, { align: 'center' });
     });
@@ -490,10 +492,10 @@ const App = () => {
         if (!item) break;
         const [, ...rest] = item.split(': ');
         const desc = sanitize(rest.join(': '));
-        pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5);
+        pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8);
         const descLines = pdf.splitTextToSize(desc, wsColW - 2 * PAD);
         descLinesArr[j] = descLines;
-        heights[j] = PAD + 9 + descLines.length * LH + PAD;
+        heights[j] = PAD + 10 + descLines.length * LH + PAD;
       }
       const rowH = Math.max(heights[0], heights[1]);
       checkPage(rowH + CARD_GAP);
@@ -505,7 +507,7 @@ const App = () => {
         drawCardAt(wx, y, wsColW, rowH);
         pdf.setFont('helvetica', 'bold'); pdf.setFontSize(9); pdf.setTextColor(...white);
         pdf.text(title, wx + PAD, y + PAD + 5);
-        pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5); pdf.setTextColor(...muted);
+        pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...muted);
         pdf.text(descLinesArr[j], wx + PAD, y + PAD + 11);
       }
       y += rowH + CARD_GAP;
@@ -520,7 +522,6 @@ const App = () => {
     }, {} as Record<string, typeof cvData.books>);
     const catEntries = Object.entries(bookCategories);
     const bookColW = (contentW - (catEntries.length - 1) * 3) / catEntries.length;
-    const bookLineH = LH;
     const bPad = PAD;
     const catBookLines: { titleLines: string[]; author: string }[][] = catEntries.map(([, books]) => {
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8);
@@ -530,8 +531,8 @@ const App = () => {
       }));
     });
     const catHeights = catBookLines.map(bookLines => {
-      let h = bPad + 9;
-      bookLines.forEach(({ titleLines }) => { h += titleLines.length * bookLineH + bookLineH + 2; });
+      let h = bPad + 10;
+      bookLines.forEach(({ titleLines }) => { h += titleLines.length * LH + LH + 3; });
       return h + bPad;
     });
     const bookCardH = Math.max(...catHeights);
@@ -541,14 +542,14 @@ const App = () => {
       drawCardAt(bx, y, bookColW, bookCardH);
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(9); pdf.setTextColor(...white);
       pdf.text(category, bx + bPad, y + bPad + 5);
-      let by = y + bPad + 11;
+      let by = y + bPad + 12;
       catBookLines[i].forEach(({ titleLines, author }) => {
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...white);
         pdf.text(titleLines, bx + bPad, by);
-        by += titleLines.length * bookLineH;
+        by += titleLines.length * LH + 1;
         pdf.setFontSize(7); pdf.setTextColor(...muted);
         pdf.text(author, bx + bPad, by);
-        by += bookLineH + 2;
+        by += LH + 3;
       });
     });
     y += bookCardH + CARD_GAP;
