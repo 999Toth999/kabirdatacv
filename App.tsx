@@ -224,32 +224,29 @@ const EducationCard: React.FC<{ item: Education }> = ({ item }) => (
 const ContactForm = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        const data = {
-            name: formData.get('name'),
-            email: formData.get('email'),
-            message: formData.get('message'),
-            timestamp: new Date().toISOString()
-        };
+        const form = e.currentTarget;
         
         try {
-            const response = await fetch('/api/contact', {
+            const response = await fetch('/', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(new FormData(form) as any).toString()
             });
             if (response.ok) {
                 alert('Message sent successfully!');
-                e.currentTarget.reset();
+                form.reset();
+            } else {
+                alert('Error sending message. Please try again.');
             }
         } catch (error) {
-            alert('Message saved locally!');
-            console.log('Contact form data:', data);
+            alert('Error sending message. Please try again.');
         }
     };
 
     return (
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" className="space-y-4" onSubmit={handleSubmit}>
+            <input type="hidden" name="form-name" value="contact" />
+            <input type="hidden" name="bot-field" />
             <input type="text" name="name" placeholder="Full Name" required className="w-full bg-brand-dark border border-brand-border rounded-lg p-3 text-base focus:outline-none focus:ring-2 focus:ring-brand-green transition-colors" />
             <input type="email" name="email" placeholder="Email" required className="w-full bg-brand-dark border border-brand-border rounded-lg p-3 text-base focus:outline-none focus:ring-2 focus:ring-brand-green transition-colors" />
             <textarea name="message" placeholder="Message" rows={4} required className="w-full bg-brand-dark border border-brand-border rounded-lg p-3 text-base resize-none focus:outline-none focus:ring-2 focus:ring-brand-green transition-colors"></textarea>
