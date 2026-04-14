@@ -42,7 +42,7 @@ const cvData: CVData = {
   address: "Buenos Aires, Argentina",
   profilePictureUrl: "/ka-profile.jpg",
   socials: [
-    { name: "GitHub", url: "https://github.com/kabir-hasenbalg", icon: GithubIcon },
+    { name: "GitHub", url: "https://github.com/djeliteglobal", icon: GithubIcon },
     { name: "LinkedIn", url: "https://linkedin.com/in/kabirhasenbalg", icon: LinkedInIcon },
     { name: "Twitter", url: "https://x.com/", icon: TwitterIcon },
     { name: "Instagram", url: "https://instagram.com/kabirhasenm", icon: InstagramIcon },
@@ -356,35 +356,37 @@ const App = () => {
     // ===== PROFILE =====
     sectionTitle('Profile');
     pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(...muted);
-    const profileLines = pdf.splitTextToSize(sanitize(cvData.profile), contentW - 4);
+    const profileLines = pdf.splitTextToSize(sanitize(cvData.profile), contentW - 8);
     checkPage(profileLines.length * 4 + 4);
-    pdf.text(profileLines, margin + 2, y);
-    y += profileLines.length * 4 + 6;
+    pdf.text(profileLines, margin + 4, y);
+    y += profileLines.length * 4 + 4;
 
     // ===== STATS =====
     const statW = (contentW - 9) / 4;
-    checkPage(18);
+    const statH = 16;
+    checkPage(statH + 6);
     cvData.stats.forEach((stat, i) => {
       const sx = margin + i * (statW + 3);
-      drawCard(sx, statW, 14);
+      drawCard(sx, statW, statH);
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(14); pdf.setTextColor(...green);
-      pdf.text(stat.value, sx + statW / 2, y + 7, { align: 'center' });
+      pdf.text(stat.value, sx + statW / 2, y + statH / 2 - 1, { align: 'center' });
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7); pdf.setTextColor(...muted);
-      pdf.text(stat.label, sx + statW / 2, y + 12, { align: 'center' });
+      pdf.text(stat.label, sx + statW / 2, y + statH / 2 + 4, { align: 'center' });
     });
-    y += 20;
+    y += statH + 5;
 
     // ===== EXPERIENCE =====
     sectionTitle('Experience');
+    const expPad = 4; // uniform inner padding
     cvData.experience.forEach(exp => {
       const bullets = exp.description;
-      const bulletLines = bullets.map(b => pdf.splitTextToSize(sanitize(`• ${b}`), contentW - 14));
+      const bulletLines = bullets.map(b => pdf.splitTextToSize(sanitize(`• ${b}`), contentW - 2 * expPad));
       const totalLines = bulletLines.reduce((sum, lines) => sum + lines.length, 0);
-      const cardH = 18 + totalLines * 3.8;
-      checkPage(cardH + 4);
+      const cardH = 18 + totalLines * 3.8 + expPad;
+      checkPage(cardH + 3);
       drawCard(margin, contentW, cardH);
-      const cx = margin + 6;
-      let cy = y + 6;
+      const cx = margin + expPad;
+      let cy = y + expPad + 2;
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(11); pdf.setTextColor(...white);
       pdf.text(exp.role, cx, cy);
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(...green);
@@ -397,34 +399,36 @@ const App = () => {
         pdf.text(lines, cx, cy);
         cy += lines.length * 3.8;
       });
-      y += cardH + 4;
+      y += cardH + 3;
     });
 
     // ===== EDUCATION =====
     sectionTitle('Education');
     const eduColW = (contentW - 4) / 2;
+    const ePad = 4;
+    const eduCardH = 16;
     for (let i = 0; i < cvData.education.length; i += 2) {
-      checkPage(18);
+      checkPage(eduCardH + 3);
       for (let j = 0; j < 2; j++) {
         const edu = cvData.education[i + j];
         if (!edu) break;
         const ex = margin + j * (eduColW + 4);
-        drawCard(ex, eduColW, 14);
+        drawCard(ex, eduColW, eduCardH);
         pdf.setFont('helvetica', 'bold'); pdf.setFontSize(9); pdf.setTextColor(...white);
-        pdf.text(edu.degree, ex + 4, y + 5, { maxWidth: eduColW - 28 });
+        pdf.text(edu.degree, ex + ePad, y + ePad + 2, { maxWidth: eduColW - 2 * ePad - 20 });
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...muted);
-        pdf.text(edu.institution, ex + 4, y + 10);
+        pdf.text(edu.institution, ex + ePad, y + ePad + 7);
         pdf.setFontSize(7); pdf.setTextColor(...green);
-        pdf.text(edu.period, ex + eduColW - 4, y + 5, { align: 'right' });
+        pdf.text(edu.period, ex + eduColW - ePad, y + ePad + 2, { align: 'right' });
       }
-      y += 18;
+      y += eduCardH + 3;
     }
 
     // ===== CORE SKILLS =====
     sectionTitle('Core Skills');
     const skillColW = (contentW - 4) / 2;
     const skillLineH = 3.5;
-    const skillPad = 4; // bottom padding inside card
+    const cPad = 4; // uniform card padding
     pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5);
     for (let i = 0; i < cvData.skills.length; i += 2) {
       const heights: number[] = [0, 0];
@@ -434,44 +438,45 @@ const App = () => {
         if (!cat) break;
         let totalLines = 0;
         cat.items.forEach(item => {
-          const lines = pdf.splitTextToSize(sanitize(`• ${item}`), skillColW - 8);
+          const lines = pdf.splitTextToSize(sanitize(`• ${item}`), skillColW - 2 * cPad);
           itemLines[j].push(lines);
           totalLines += lines.length;
         });
-        heights[j] = 12 + totalLines * skillLineH + skillPad;
+        heights[j] = cPad + 8 + totalLines * skillLineH + cPad;
       }
       const rowH = Math.max(heights[0], heights[1]);
-      checkPage(rowH + 4);
+      checkPage(rowH + 3);
       for (let j = 0; j < 2; j++) {
         const cat = cvData.skills[i + j];
         if (!cat) break;
         const sx = margin + j * (skillColW + 4);
-        drawCardAt(sx, y, skillColW, heights[j]);
+        drawCardAt(sx, y, skillColW, rowH);
         pdf.setFont('helvetica', 'bold'); pdf.setFontSize(10); pdf.setTextColor(...white);
-        pdf.text(cat.name, sx + 4, y + 6);
+        pdf.text(cat.name, sx + cPad, y + cPad + 4);
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5); pdf.setTextColor(...muted);
-        let iy = y + 12;
+        let iy = y + cPad + 10;
         itemLines[j].forEach(lines => {
-          pdf.text(lines, sx + 4, iy);
+          pdf.text(lines, sx + cPad, iy);
           iy += lines.length * skillLineH;
         });
       }
-      y += rowH + 4;
+      y += rowH + 3;
     }
 
     // ===== LANGUAGES =====
     sectionTitle('Languages');
     const langW = (contentW - 9) / 4;
-    checkPage(18);
+    const langH = 16;
+    checkPage(langH + 6);
     cvData.languages.forEach((lang, i) => {
       const lx = margin + i * (langW + 3);
-      drawCard(lx, langW, 14);
+      drawCard(lx, langW, langH);
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(10); pdf.setTextColor(...white);
-      pdf.text(lang.name, lx + langW / 2, y + 6, { align: 'center' });
+      pdf.text(lang.name, lx + langW / 2, y + langH / 2 - 1, { align: 'center' });
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...muted);
-      pdf.text(lang.level, lx + langW / 2, y + 11, { align: 'center' });
+      pdf.text(lang.level, lx + langW / 2, y + langH / 2 + 4, { align: 'center' });
     });
-    y += 20;
+    y += langH + 5;
 
     // ===== WORKING STYLE =====
     sectionTitle('Working Style');
@@ -485,24 +490,24 @@ const App = () => {
         if (!item) break;
         const [, ...rest] = item.split(': ');
         const desc = sanitize(rest.join(': '));
-        const descLines = pdf.splitTextToSize(desc, wsColW - 8);
+        const descLines = pdf.splitTextToSize(desc, wsColW - 2 * wsPad);
         descLinesArr[j] = descLines;
-        heights[j] = 12 + descLines.length * 3.5 + wsPad;
+        heights[j] = wsPad + 8 + descLines.length * 3.5 + wsPad;
       }
       const rowH = Math.max(heights[0], heights[1]);
-      checkPage(rowH + 4);
+      checkPage(rowH + 3);
       for (let j = 0; j < 2; j++) {
         const item = cvData.workingStyle[i + j];
         if (!item) break;
         const [title] = item.split(': ');
         const wx = margin + j * (wsColW + 4);
-        drawCardAt(wx, y, wsColW, heights[j]);
+        drawCardAt(wx, y, wsColW, rowH);
         pdf.setFont('helvetica', 'bold'); pdf.setFontSize(9); pdf.setTextColor(...white);
-        pdf.text(title, wx + 4, y + 6);
+        pdf.text(title, wx + wsPad, y + wsPad + 4);
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5); pdf.setTextColor(...muted);
-        pdf.text(descLinesArr[j], wx + 4, y + 11);
+        pdf.text(descLinesArr[j], wx + wsPad, y + wsPad + 9);
       }
-      y += rowH + 4;
+      y += rowH + 3;
     }
 
     // ===== CONTINUOUS LEARNING =====
@@ -515,44 +520,44 @@ const App = () => {
     const catEntries = Object.entries(bookCategories);
     const bookColW = (contentW - (catEntries.length - 1) * 3) / catEntries.length;
     const bookLineH = 3.2;
+    const bPad = 4;
     // Pre-compute wrapped lines for each book in each category to get accurate heights
     const catBookLines: { titleLines: string[]; author: string }[][] = catEntries.map(([, books]) => {
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8);
       return books.map(book => ({
-        titleLines: pdf.splitTextToSize(book.title, bookColW - 8),
+        titleLines: pdf.splitTextToSize(book.title, bookColW - 2 * bPad),
         author: book.author,
       }));
     });
     const catHeights = catBookLines.map(bookLines => {
-      let h = 10;
+      let h = bPad + 8;
       bookLines.forEach(({ titleLines }) => { h += titleLines.length * bookLineH + bookLineH + 1; });
-      return h;
+      return h + bPad;
     });
     const bookCardH = Math.max(...catHeights);
-    checkPage(bookCardH + 4);
+    checkPage(bookCardH + 3);
     catEntries.forEach(([category], i) => {
       const bx = margin + i * (bookColW + 3);
-      drawCardAt(bx, y, bookColW, catHeights[i]);
+      drawCardAt(bx, y, bookColW, bookCardH);
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(9); pdf.setTextColor(...white);
-      pdf.text(category, bx + 4, y + 6);
-      let by = y + 12;
+      pdf.text(category, bx + bPad, y + bPad + 4);
+      let by = y + bPad + 10;
       catBookLines[i].forEach(({ titleLines, author }) => {
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...white);
-        pdf.text(titleLines, bx + 4, by);
+        pdf.text(titleLines, bx + bPad, by);
         by += titleLines.length * bookLineH;
         pdf.setFontSize(7); pdf.setTextColor(...muted);
-        pdf.text(author, bx + 4, by);
+        pdf.text(author, bx + bPad, by);
         by += bookLineH + 1;
       });
     });
-    y += bookCardH + 6;
+    y += bookCardH + 5;
 
-    // ===== CONTACT =====
-    sectionTitle('Contact');
-    checkPage(12);
-    pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(...muted);
-    pdf.text(`Phone: ${cvData.phone}    |    Email: ${cvData.email}    |    ${cvData.address}`, margin + 2, y);
-    y += 8;
+    // ===== CONTACT (inline, no section title to save space) =====
+    y += 2;
+    pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...muted);
+    pdf.text(`Phone: ${cvData.phone}  |  Email: ${cvData.email}  |  ${cvData.address}`, pageW / 2, y, { align: 'center' });
+    y += 6;
 
     pdf.save('Kabir_Hasenbalg_CV.pdf');
   };
