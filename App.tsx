@@ -351,8 +351,12 @@ const App = () => {
     pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(...muted);
     const profileLines = pdf.splitTextToSize(sanitize(cvData.profile), contentW - 8);
     checkPage(profileLines.length * LH + 4);
-    pdf.text(profileLines, margin + 4, y);
-    y += profileLines.length * LH + 5;
+    let profileY = y;
+    profileLines.forEach(line => {
+      pdf.text(line, margin + 4, profileY);
+      profileY += LH;
+    });
+    y = profileY + 5;
 
     // ===== STATS =====
     const statW = (contentW - 9) / 4;
@@ -374,8 +378,12 @@ const App = () => {
     cvData.keyAchievements.forEach(achievement => {
       const lines = pdf.splitTextToSize(sanitize(`• ${achievement}`), contentW - 8);
       checkPage(lines.length * LH + 2);
-      pdf.text(lines, margin + 4, y);
-      y += lines.length * LH + 2;
+      let achY = y;
+      lines.forEach(line => {
+        pdf.text(line, margin + 4, achY);
+        achY += LH;
+      });
+      y = achY + 2;
     });
     y += CARD_GAP;
 
@@ -402,8 +410,10 @@ const App = () => {
       cy += 7;
       pdf.setTextColor(...muted); pdf.setFontSize(8);
       bulletLines.forEach(lines => {
-        pdf.text(lines, cx, cy);
-        cy += lines.length * LH;
+        lines.forEach(line => {
+          pdf.text(line, cx, cy);
+          cy += LH;
+        });
       });
       y += cardH + CARD_GAP;
     });
@@ -459,8 +469,10 @@ const App = () => {
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...muted);
         let iy = y + PAD + 12;
         itemLines[j].forEach(lines => {
-          pdf.text(lines, sx + PAD, iy);
-          iy += lines.length * LH;
+          lines.forEach(line => {
+            pdf.text(line, sx + PAD, iy);
+            iy += LH;
+          });
         });
       }
       y += rowH + CARD_GAP;
@@ -509,7 +521,11 @@ const App = () => {
         pdf.setFont('helvetica', 'bold'); pdf.setFontSize(9); pdf.setTextColor(...white);
         pdf.text(title, wx + PAD, y + PAD + 5);
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...muted);
-        pdf.text(descLinesArr[j], wx + PAD, y + PAD + 11);
+        let descY = y + PAD + 11;
+        descLinesArr[j].forEach(line => {
+          pdf.text(line, wx + PAD, descY);
+          descY += LH;
+        });
       }
       y += rowH + CARD_GAP;
     }
@@ -547,8 +563,11 @@ const App = () => {
       let by = y + bPad + 12;
       catBookLines[i].forEach(({ titleLines, author }) => {
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...white);
-        pdf.text(titleLines, bx + bPad, by);
-        by += titleLines.length * LH + 1;
+        titleLines.forEach(line => {
+          pdf.text(line, bx + bPad, by);
+          by += LH;
+        });
+        by += 1;
         pdf.setFontSize(7); pdf.setTextColor(...muted);
         pdf.text(author, bx + bPad, by);
         by += LH + 3;
