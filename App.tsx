@@ -309,11 +309,11 @@ const App = () => {
     const drawCard = (x: number, w: number, h: number) => drawCardAt(x, y, w, h);
 
     const sectionTitle = (title: string) => {
-      checkPage(14);
-      pdf.setFillColor(...green); pdf.rect(margin, y, 3, 8, 'F');
-      pdf.setFont('helvetica', 'bold'); pdf.setFontSize(16); pdf.setTextColor(...white);
-      pdf.text(title, margin + 7, y + 6);
-      y += 14;
+      checkPage(12);
+      pdf.setFillColor(...green); pdf.rect(margin, y, 3, 7, 'F');
+      pdf.setFont('helvetica', 'bold'); pdf.setFontSize(14); pdf.setTextColor(...white);
+      pdf.text(title, margin + 7, y + 5.5);
+      y += 11;
     };
 
     // ===== HEADER (with profile photo) =====
@@ -351,7 +351,7 @@ const App = () => {
     const github = cvData.socials.find(s => s.name === 'GitHub');
     const linksText = [linkedIn && linkedIn.url, github && github.url].filter(Boolean).join('  |  ');
     if (linksText) { pdf.text(linksText, textX, y + 30); }
-    y += headerH + 6;
+    y += headerH + 4;
 
     // ===== PROFILE =====
     sectionTitle('Profile');
@@ -359,7 +359,7 @@ const App = () => {
     const profileLines = pdf.splitTextToSize(sanitize(cvData.profile), contentW - 8);
     checkPage(profileLines.length * 4 + 4);
     pdf.text(profileLines, margin + 4, y);
-    y += profileLines.length * 4 + 4;
+    y += profileLines.length * 4 + 3;
 
     // ===== STATS =====
     const statW = (contentW - 9) / 4;
@@ -373,7 +373,7 @@ const App = () => {
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7); pdf.setTextColor(...muted);
       pdf.text(stat.label, sx + statW / 2, y + statH / 2 + 4, { align: 'center' });
     });
-    y += statH + 5;
+    y += statH + 3;
 
     // ===== EXPERIENCE =====
     sectionTitle('Experience');
@@ -400,7 +400,7 @@ const App = () => {
         pdf.text(lines, cx, cy);
         cy += lines.length * 3.8;
       });
-      y += cardH + 3;
+      y += cardH + 2;
     });
 
     // ===== EDUCATION =====
@@ -422,7 +422,7 @@ const App = () => {
         pdf.setFontSize(7); pdf.setTextColor(...green);
         pdf.text(edu.period, ex + eduColW - ePad, y + ePad + 2, { align: 'right' });
       }
-      y += eduCardH + 3;
+      y += eduCardH + 2;
     }
 
     // ===== CORE SKILLS =====
@@ -461,7 +461,7 @@ const App = () => {
           iy += lines.length * skillLineH;
         });
       }
-      y += rowH + 3;
+      y += rowH + 2;
     }
 
     // ===== LANGUAGES =====
@@ -477,7 +477,7 @@ const App = () => {
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(...muted);
       pdf.text(lang.level, lx + langW / 2, y + langH / 2 + 4, { align: 'center' });
     });
-    y += langH + 5;
+    y += langH + 3;
 
     // ===== WORKING STYLE =====
     sectionTitle('Working Style');
@@ -509,7 +509,7 @@ const App = () => {
         pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5); pdf.setTextColor(...muted);
         pdf.text(descLinesArr[j], wx + wsPad, y + wsPad + 9);
       }
-      y += rowH + 3;
+      y += rowH + 2;
     }
 
     // ===== CONTINUOUS LEARNING =====
@@ -553,7 +553,7 @@ const App = () => {
         by += bookLineH + 1;
       });
     });
-    y += bookCardH + 5;
+    y += bookCardH + 3;
 
     // ===== CONTACT (inline, no section title to save space) =====
     checkPage(8);
