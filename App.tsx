@@ -301,12 +301,13 @@ const App = () => {
     };
     const drawCard = (x: number, w: number, h: number) => drawCardAt(x, y, w, h);
 
-    const sectionTitle = (title: string) => {
-      checkPage(20); // Increased to prevent orphan titles
+    const sectionTitle = (title: string, icon?: string) => {
+      checkPage(20);
       pdf.setFillColor(...green); pdf.rect(margin, y, 3, 7, 'F');
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(14); pdf.setTextColor(...white);
-      pdf.text(title, margin + 7, y + 5.5);
-      y += 12; // Increased gap after title
+      const titleText = icon ? `${icon} ${title}` : title;
+      pdf.text(titleText, margin + 7, y + 5.5);
+      y += 12;
     };
 
     // ===== HEADER (with profile photo) =====
@@ -347,7 +348,7 @@ const App = () => {
     y += headerH + 4;
 
     // ===== PROFILE =====
-    sectionTitle('Profile');
+    sectionTitle('Profile', '>>');
     pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(...muted);
     const profileLines = pdf.splitTextToSize(sanitize(cvData.profile), contentW - 8);
     checkPage(profileLines.length * LH + 4);
@@ -373,7 +374,7 @@ const App = () => {
     y += statH + CARD_GAP;
 
     // ===== KEY ACHIEVEMENTS =====
-    sectionTitle('Key Achievements');
+    sectionTitle('Key Achievements', '^');
     pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(...muted);
     cvData.keyAchievements.forEach(achievement => {
       const lines = pdf.splitTextToSize(sanitize(`• ${achievement}`), contentW - 8);
@@ -388,7 +389,7 @@ const App = () => {
     y += 4;
 
     // ===== EXPERIENCE =====
-    sectionTitle('Experience');
+    sectionTitle('Experience', '*');
     cvData.experience.forEach(exp => {
       const bullets = exp.description;
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8);
@@ -399,19 +400,24 @@ const App = () => {
       drawCard(margin, contentW, cardH);
       const cx = margin + PAD;
       let cy = y + PAD_TOP + 4;
+      // Add icon indicator
+      const iconMap: Record<string, string> = { '🏢': '[B]', '🚀': '[A]', '🎵': '[M]', '📸': '[P]', '🎬': '[F]' };
+      const iconSymbol = iconMap[exp.icon] || '[*]';
+      pdf.setFont('helvetica', 'bold'); pdf.setFontSize(9); pdf.setTextColor(...green);
+      pdf.text(iconSymbol, cx, cy);
       pdf.setFont('helvetica', 'bold'); pdf.setFontSize(11); pdf.setTextColor(...white);
-      pdf.text(exp.role, cx, cy);
+      pdf.text(exp.role, cx + 8, cy);
       cy += 5.5;
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(...green);
-      pdf.text(exp.company, cx, cy);
+      pdf.text(exp.company, cx + 8, cy);
       cy += 5;
       pdf.setTextColor(...muted); pdf.setFontSize(8);
-      pdf.text(`${exp.period}  •  ${exp.location}`, cx, cy);
+      pdf.text(`${exp.period}  •  ${exp.location}`, cx + 8, cy);
       cy += 7;
       pdf.setTextColor(...muted); pdf.setFontSize(8);
       bulletLines.forEach(lines => {
         lines.forEach(line => {
-          pdf.text(line, cx, cy);
+          pdf.text(line, cx + 8, cy);
           cy += LH;
         });
       });
@@ -419,7 +425,7 @@ const App = () => {
     });
 
     // ===== EDUCATION =====
-    sectionTitle('Education');
+    sectionTitle('Education', '+');
     const eduColW = (contentW - 4) / 2;
     for (let i = 0; i < cvData.education.length; i += 2) {
       const eduCardH = 20;
@@ -441,7 +447,7 @@ const App = () => {
 
     // ===== CORE SKILLS =====
     checkPage(60); // Force new page if less than 60mm remaining
-    sectionTitle('Core Skills');
+    sectionTitle('Core Skills', '#');
     const skillColW = (contentW - 4) / 2;
     for (let i = 0; i < cvData.skills.length; i += 2) {
       const heights: number[] = [0, 0];
@@ -480,7 +486,7 @@ const App = () => {
     }
 
     // ===== LANGUAGES =====
-    sectionTitle('Languages');
+    sectionTitle('Languages', '@');
     const langW = (contentW - 9) / 4;
     const langH = 15;
     checkPage(langH + CARD_GAP);
@@ -533,7 +539,7 @@ const App = () => {
     } // end workingStyle
 
     // ===== CONTINUOUS LEARNING =====
-    sectionTitle('Continuous Learning');
+    sectionTitle('Continuous Learning', '~');
     const bookCategories = cvData.books.reduce((acc, book) => {
       if (!acc[book.category]) acc[book.category] = [];
       acc[book.category].push(book);
