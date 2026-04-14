@@ -380,6 +380,7 @@ const App = () => {
     const expPad = 4; // uniform inner padding
     cvData.experience.forEach(exp => {
       const bullets = exp.description;
+      pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8);
       const bulletLines = bullets.map(b => pdf.splitTextToSize(sanitize(`• ${b}`), contentW - 2 * expPad));
       const totalLines = bulletLines.reduce((sum, lines) => sum + lines.length, 0);
       const cardH = 18 + totalLines * 3.8 + expPad;
@@ -490,6 +491,7 @@ const App = () => {
         if (!item) break;
         const [, ...rest] = item.split(': ');
         const desc = sanitize(rest.join(': '));
+        pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5);
         const descLines = pdf.splitTextToSize(desc, wsColW - 2 * wsPad);
         descLinesArr[j] = descLines;
         heights[j] = wsPad + 8 + descLines.length * 3.5 + wsPad;
