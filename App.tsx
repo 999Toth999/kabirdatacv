@@ -99,7 +99,9 @@ const cvData: CVData = {
       description: [
         "Building an autonomous sales system with multi-agent orchestration (Paperclip, Hermes, Agentmail) — generates custom landing pages per prospect, handles Stripe payments, sent 900+ campaigns managed via Discord.",
         
-        "Led content and community for On The Ground Sound (Amsterdam) — produced 12 DJ mix videos (105K YouTube views), created After Effects intro for Instagram brand, personally curated all DJ submissions, engaged daily with users, delivered UX improvement ideas to dev team, organized 5 live events, and automated 160+ posts across 5 platforms.",
+        "Led content and community for On The Ground Sound (Amsterdam) — produced 12 DJ mix videos (105K YouTube views), created After Effects intro for Instagram brand, organized 5 live events, and automated 160+ posts across 5 platforms.",
+        
+        "Personally curated all DJ submissions, engaged daily with platform users, and delivered continuous UX improvement ideas to the dev team.",
         
         "Audiovisual production and social media consulting for international clients (@kabir.ph) — directed 40+ models at The Loft Studios, produced video campaigns, managed multi-platform content strategies."
       ],
