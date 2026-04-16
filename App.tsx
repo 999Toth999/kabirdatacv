@@ -345,10 +345,10 @@ const App = () => {
     const fillPage = () => { pdf.setFillColor(...black); pdf.rect(0, 0, pageW, pageH, 'F'); };
     fillPage();
 
-    const CARD_GAP = 5;   // vertical gap between cards (reduced to fit more)
-    const LH = 6.5;       // base line height for body text (reduced to fit more)
+    const CARD_GAP = 4;   // vertical gap between cards (reduced to fit more)
+    const LH = 6.0;       // base line height for body text (reduced to fit more)
     const PAD = 4;        // inner card padding (reduced)
-    const PAD_TOP = 5;    // top padding for experience cards (reduced)
+    const PAD_TOP = 4;    // top padding for experience cards (reduced)
     const margin = 12;
     const contentW = pageW - margin * 2;
 
@@ -600,8 +600,10 @@ const App = () => {
     } // end workingStyle
 
     // ===== CONTINUOUS LEARNING =====
-    // Force page 2 for books and contact
-    if (y > margin + 20) { pdf.addPage(); fillPage(); y = margin; }
+    // Only add page if we're still on page 1 and near the end
+    if (pdf.getCurrentPageInfo().pageNumber === 1 && y > pageH - 80) { 
+      pdf.addPage(); fillPage(); y = margin; 
+    }
     sectionTitle('Continuous Learning', '>>');
     const bookCategories = cvData.books.reduce((acc, book) => {
       if (!acc[book.category]) acc[book.category] = [];
