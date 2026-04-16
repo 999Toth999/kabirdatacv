@@ -61,13 +61,9 @@ const cvData: CVData = {
   keyAchievements: [
     "Produced a single Instagram Reel that reached 1,900,000 views, 60,100 likes, and 781 comments organically — driving a 33% increase in followers in 7 days.",
     
-    "Built an autonomous outbound sales system that sent 900+ emails with custom landing pages generated per prospect using multi-agent orchestration (Paperclip, Hermes, Agentmail).",
+    "Built DJElite end-to-end in 3 months as a solo founder: Supabase, React, TypeScript, OAuth, Stripe, Ably — complete DJ/promoter platform with Tinder-style matching, real-time chat, and event monetization.",
     
-    "Built DJElite end-to-end in 3 months as a solo founder: Supabase, React, TypeScript, OAuth, Stripe, Ably — Tinder-style matching, real-time chat, and event monetization.",
-    
-    "Produced 12 DJ mix videos for OTGS YouTube channel, accumulating 105,000+ total views. Top-performing episode reached 35,000 views.",
-    
-    "Automated cross-platform publishing with Sprout Social — sustained 160+ Instagram posts over 11 months (Nov 2021 - Oct 2022), averaging 1.5 posts/day."
+    "Built an autonomous outbound sales system with multi-agent orchestration (Paperclip, Hermes, Agentmail) — sent 900+ automated emails with custom landing pages generated per prospect and Stripe payment integration."
   ],
   
   skills: [
