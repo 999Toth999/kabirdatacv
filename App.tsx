@@ -399,7 +399,9 @@ const App = () => {
     pdf.setFont('helvetica', 'bold'); pdf.setFontSize(17); pdf.setTextColor(...white);
     pdf.text(cvData.name, textX, y + 8);
     pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(...green);
-    pdf.text(sanitize(cvData.title), textX, y + 14);
+    // Use only first part of title for PDF (shorter)
+    const pdfTitle = cvData.title.split(' | ')[0];
+    pdf.text(sanitize(pdfTitle), textX, y + 14);
     pdf.setFontSize(8); pdf.setTextColor(...muted);
     pdf.text(`${cvData.email}  |  ${cvData.phone}  |  ${cvData.location}`, textX, y + 20);
     const linkedIn = cvData.socials.find(s => s.name === 'LinkedIn');
