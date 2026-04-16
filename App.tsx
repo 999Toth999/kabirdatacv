@@ -36,55 +36,120 @@ const TrendingUpIcon: React.FC<{ className?: string }> = ({ className }) => <svg
 // --- DATA ---
 const cvData: CVData = {
   name: "Kabir Hasenbalg",
-  title: "AI Enablement & Growth Automation Specialist",
+  title: "Product Builder & AI Automation Specialist | Full-Stack Developer | Supabase + React | Growth Operator | Content + Code | Solo Founder | 0→1 Product Execution",
   location: "Buenos Aires, Argentina",
   email: "kabirhasen@gmail.com",
   phone: "+54 91168143855",
   address: "Buenos Aires, Argentina",
   profilePictureUrl: "/ka-profile.jpg",
+  
   socials: [
     { name: "GitHub", url: "https://github.com/djeliteglobal", icon: GithubIcon },
     { name: "LinkedIn", url: "https://linkedin.com/in/kabirhasenbalg", icon: LinkedInIcon },
-    { name: "Twitter", url: "https://x.com/", icon: TwitterIcon },
-    { name: "Instagram", url: "https://instagram.com/kabirhasenm", icon: InstagramIcon },
+    { name: "Instagram", url: "https://www.instagram.com/kabir.ph/", icon: InstagramIcon },
   ],
-  profile: "Product builder and growth marketer helping startups and coaching businesses scale through AI automation. Built DJElite (Supabase + React) from 0→1 and grew On The Ground Sound to 3K+ users with zero ad spend. Now focused on AI enablement, CRM automation, and content workflows for growth.",
+  
+  profile: "I build digital products and grow them — technically and with content. Currently building an autonomous outbound sales system with multi-agent orchestration (Paperclip, Hermes, Agentmail). Shipped DJElite end-to-end (Supabase, React, Stripe, Ably) as a solo founder in 3 months. Grew On The Ground Sound to 3,000+ users with $0 in paid ads — one Instagram Reel reached 1.9M views and 60K likes organically. Now focused on AI enablement, CRM automation, and autonomous agent systems for startups and coaching businesses that want real ownership in their operator.",
+  
   stats: [
-      { value: "6,000%", label: "Growth ($0 Ad Spend)" },
-      { value: "6+", label: "Years Experience" },
-      { value: "3K+", label: "Users Organically" },
-      { value: "4", label: "Languages" },
+    { value: "1.9M", label: "Views, 1 Reel" },
+    { value: "60K", label: "Likes, 781 Comments" },
+    { value: "3K+", label: "Users Grown ($0 Ads)" },
+    { value: "4", label: "Languages" },
   ],
+  
   keyAchievements: [
-    "Grew On The Ground Sound 6,000% (50→3K users) with $0 ad spend through organic content and email",
-    "Built DJElite platform from 0→1: Supabase + React, OAuth, Stripe, real-time features",
-    "Streamlined content workflows for OTGS and DJElite using scheduling tools and AI-assisted design, reducing posting time 60%",
+    "Produced a single Instagram Reel that reached 1,900,000 views, 60,100 likes, and 781 comments organically — driving a 33% increase in followers in 7 days.",
+    
+    "Built an autonomous outbound sales system that sent 900+ emails with custom landing pages generated per prospect using multi-agent orchestration (Paperclip, Hermes, Agentmail).",
+    
+    "Built DJElite end-to-end in 3 months as a solo founder: Supabase, React, TypeScript, OAuth, Stripe, Ably — Tinder-style matching, real-time chat, and event monetization.",
+    
+    "Produced 12 DJ mix videos for OTGS YouTube channel, accumulating 105,000+ total views. Top-performing episode reached 35,000 views.",
+    
+    "Automated cross-platform publishing with Sprout Social — sustained 160+ Instagram posts over 11 months (Nov 2021 - Oct 2022), averaging 1.5 posts/day."
   ],
+  
   skills: [
-    { name: "Build & Automate", items: ["Supabase (Auth, Realtime, PostgreSQL)", "React, TypeScript, JavaScript", "N8N Workflow Automation", "CRM Integration & Automation", "Claude Code & AI Assistants", "Python (Automation, Data Analysis)", "OAuth, Stripe Integration"] },
-    { name: "Grow & Convert", items: ["Meta Ads Strategy & Targeting", "Email Automation & Sequences", "Organic Social (Instagram, LinkedIn, X)", "Copywriting (Human, Psychology-Driven)", "Funnel Design (Attention → Trust → Conversion)", "Analytics & Optimization"] },
+    { 
+      name: "Build & Ship", 
+      items: [
+        "Multi-Agent Systems (Paperclip, Hermes, MemPalace)",
+        "Supabase (Auth, Realtime, PostgreSQL)", 
+        "React, TypeScript, JavaScript", 
+        "AI APIs (Minimax, Claude, OpenAI)",
+        "OAuth, Stripe, Ably Integration",
+        "Python, N8N Automation"
+      ] 
+    },
+    { 
+      name: "Grow & Operate", 
+      items: [
+        "Social Media Management (Sprout Social, Hootsuite)",
+        "Email & CRM Automation", 
+        "Organic Content Strategy",
+        "Video Production & After Effects",
+        "Cross-platform Publishing"
+      ] 
+    }
   ],
+  
   experience: [
-    { company: "DJElite", role: "Founder & Head of Product", period: "2023 - 2025", location: "Buenos Aires, Argentina", description: ["Built DJElite from 0→1: global platform connecting DJs and promoters (Supabase, React, OAuth, Stripe).", "Architected real-time features (Ably) and AI-powered content workflows (Claude Code) for email campaigns.", "Created and sold DJ guides as lead magnets and info-products (BuyMeACoffee) to drive platform signups.", "Deployed on Netlify/Vercel with full ownership: product, tech, and go-to-market."], icon: "🏢" },
-    { company: "Hasen Marketing Agency", role: "Founder & CEO", period: "2022 - 2025", location: "Barcelona, Spain", description: ["Managed social media for OTGS.io (Amersfoort) and DJElite — content strategy, organic growth, community engagement.", "Consulted on Meta Ads strategy for AI medical startup (audience targeting, campaign structure).", "Streamlined content posting for DJElite using Buffer and AI-assisted design; produced video ads for Barcelona fashion brands."], icon: "🚀" },
-    { company: "On The Ground Sound", role: "Head of Marketing & Content", period: "2019 - 2024", location: "Amersfoort, Netherlands", description: ["Led all marketing and content for music platform — organic social, email sequences, and community building with zero paid ads.", "Built email sequences that converted cold leads into active members; created all visual content (videos, flyers, graphics).", "Pitched 50+ clubs and venues to adopt platform; closed partnerships that drove 40% of new signups."], icon: "🎵" },
-    { company: "The Loft Studios", role: "Video, Photography & Lighting Editor", period: "2020 - 2022", location: "Barcelona, Spain", description: ["Edited and color-graded video content for brand campaigns and social media advertising.", "Managed photography shoots including composition, lighting design, and post-production editing.", "Collaborated with creative teams to produce high-quality visual content optimized for digital platforms."], icon: "📸" },
-    { company: "Intentional Ibiza", role: "Documentary Producer", period: "2019", location: "Ibiza, Spain", description: ["Produced and edited documentary about wellness retreat in Ibiza.", "Created music videos for Barcelona artists."], icon: "🎬" },
+    {
+      company: "Independent — Product & AI Automation",
+      role: "Founder & Operator",
+      period: "2019 - Present",
+      location: "Buenos Aires / Barcelona / Remote",
+      description: [
+        "Currently building an autonomous outbound sales system with multi-agent orchestration (Paperclip, Hermes, Agentmail) — sent 900+ automated emails with custom landing pages generated per prospect and Stripe payment integration. Managed via Discord with persistent memory (MemPalace).",
+        
+        "Built DJElite (Supabase, React, Stripe, Ably) in 3 months as a solo founder — complete DJ/promoter platform with Tinder-style matching, real-time chat, and event monetization. Deployed to production on Netlify.",
+        
+        "Grew On The Ground Sound to 3K+ users with $0 ad spend — produced 12 DJ mix videos for YouTube (105K total views), one Instagram Reel hit 1.9M views and 60K likes (33% follower growth), automated 160+ posts in 11 months with Sprout Social.",
+        
+        "Audiovisual production and social media consulting for international clients (@kabir.ph)"
+      ],
+      icon: "🚀"
+    }
   ],
+  
   education: [
-    { degree: "CS50: Intro to Computer Science", institution: "Harvard University", period: "Ongoing" },
-    { degree: "Python Certification", institution: "Universidad de Buenos Aires", period: "2014, 2015" },
-    { degree: "Design in Image and Sound", institution: "University of Buenos Aires (FADU)", period: "2014 - 2015" },
-    { degree: "Music Production", institution: "Berklee College of Music (Coursera)", period: "2015" },
-    { degree: "Social Media Marketing (SMMA)", institution: "Self-directed Study", period: "2019 - 2020" },
+    { 
+      degree: "Model Context Protocol (MCP)", 
+      institution: "Anthropic", 
+      period: "2026 - Ongoing" 
+    },
+    { 
+      degree: "CS50: Intro to Computer Science", 
+      institution: "Harvard University (edX)", 
+      period: "Ongoing" 
+    },
+    { 
+      degree: "Design in Image and Sound", 
+      institution: "University of Buenos Aires (FADU)", 
+      period: "2014 - 2015" 
+    },
+    { 
+      degree: "Music Production", 
+      institution: "Berklee College of Music (Coursera)", 
+      period: "2015" 
+    },
+    { 
+      degree: "Python & Data Automation", 
+      institution: "Universidad de Buenos Aires", 
+      period: "2014 - 2015" 
+    }
   ],
+  
   languages: [
     { name: "Spanish", level: "Native" },
     { name: "English", level: "Native" },
     { name: "Portuguese", level: "Professional" },
     { name: "Italian", level: "Professional" },
   ],
+  
   workingStyle: [],
+  
   books: [
     { title: "Pitch Anything", author: "Oren Klaff", category: "Business" },
     { title: "The 4-Hour Work Week", author: "Tim Ferriss", category: "Business" },
@@ -93,7 +158,7 @@ const cvData: CVData = {
     { title: "How to Win Friends and Influence People", author: "Dale Carnegie", category: "Mindset" },
     { title: "The Psychology of Money", author: "Morgan Housel", category: "Mindset" },
   ],
-};
+};;
 
 // --- ANIMATION COMPONENTS ---
 const AnimatedItem: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ children, className, delay = 0 }) => {
