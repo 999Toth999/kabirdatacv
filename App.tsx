@@ -53,7 +53,7 @@ const cvData: CVData = {
   
   stats: [
     { value: "1.9M", label: "Views, 1 Reel" },
-    { value: "60K", label: "Likes, 781 Comments" },
+    { value: "105K", label: "YouTube Views" },
     { value: "3K+", label: "Users Grown ($0 Ads)" },
     { value: "4", label: "Languages" },
   ],
