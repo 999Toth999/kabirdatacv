@@ -59,11 +59,11 @@ const cvData: CVData = {
   ],
   
   keyAchievements: [
-    "Produced an Instagram Reel that reached 1,900,000 views, 60,100 likes, and 781 comments organically — driving a 33% increase in followers in 7 days.",
+    "Produced an Instagram Reel that reached 1,900,000 views, 60,100 likes, and 781 comments organically — driving 33% follower growth in 7 days.",
     
-    "Built DJElite end-to-end in 3 months: Supabase (Auth, Realtime, PostgreSQL), React, TypeScript, OAuth, Stripe, Ably — Tinder-style matching, real-time chat, and event monetization.",
+    "Built DJElite end-to-end in 3 months as solo founder: Supabase (Auth, Realtime, PostgreSQL), React, TypeScript, OAuth, Stripe, Ably — Tinder-style matching, real-time chat, and event monetization.",
     
-    "Built an autonomous outbound sales system with multi-agent orchestration (Paperclip, Hermes, Agentmail) — 900+ emails sent with custom landing pages generated per prospect and Stripe payment integration."
+    "Grew On The Ground Sound from 0 to 3,000+ users with $0 ad spend through organic content strategy and automated cross-platform publishing."
   ],
   
   skills: [
@@ -97,13 +97,11 @@ const cvData: CVData = {
       period: "2019 - Present",
       location: "Buenos Aires / Barcelona / Remote",
       description: [
-        "Building an autonomous sales system that generates custom landing pages per prospect and handles payment flows. Sent 900+ campaigns with multi-agent orchestration managed via Discord.",
+        "Building an autonomous sales system with multi-agent orchestration (Paperclip, Hermes, Agentmail) — generates custom landing pages per prospect, handles Stripe payments, sent 900+ campaigns managed via Discord.",
         
-        "Shipped DJElite — a complete DJ/promoter platform with matching, real-time chat, and event monetization. Deployed to production in 3 months as solo founder.",
+        "Led content and community for On The Ground Sound (Amsterdam) — produced 12 DJ mix videos (105K YouTube views), created After Effects intro for Instagram brand, personally curated all DJ submissions, engaged daily with users, delivered UX improvement ideas to dev team, organized 5 live events, and automated 160+ posts across 5 platforms.",
         
-        "Grew On The Ground Sound to 3K+ users organically — produced 12 DJ mix videos (105K YouTube views), viral Instagram content (1.9M views, 33% follower growth), and automated 160+ posts in 11 months.",
-        
-        "Audiovisual production and social media consulting for international clients (@kabir.ph)"
+        "Audiovisual production and social media consulting for international clients (@kabir.ph) — directed 40+ models at The Loft Studios, produced video campaigns, managed multi-platform content strategies."
       ],
       icon: "🚀"
     }
