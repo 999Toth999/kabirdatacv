@@ -36,7 +36,7 @@ const TrendingUpIcon: React.FC<{ className?: string }> = ({ className }) => <svg
 // --- DATA ---
 const cvData: CVData = {
   name: "Kabir Hasenbalg",
-  title: "Product Builder & AI Automation Specialist | Full-Stack Developer | Supabase + React | Growth Operator | Content + Code | Solo Founder | 0→1 Product Execution",
+  title: "Product Builder & AI Automation Specialist | Full-Stack Developer (Supabase + React) | Solo Founder | 0→1 Execution",
   location: "Buenos Aires, Argentina",
   email: "kabirhasen@gmail.com",
   phone: "+54 91168143855",
