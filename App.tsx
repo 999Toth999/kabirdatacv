@@ -49,7 +49,7 @@ const cvData: CVData = {
     { name: "Instagram", url: "https://www.instagram.com/kabir.ph/", icon: InstagramIcon },
   ],
   
-  profile: "I build digital products and grow them — technically and with content. Currently building an autonomous outbound sales system with multi-agent orchestration (Paperclip, Hermes, Agentmail). Shipped DJElite end-to-end (Supabase, React, Stripe, Ably) as a solo founder in 3 months. Grew On The Ground Sound to 3,000+ users with $0 in paid ads — one Instagram Reel reached 1.9M views and 60K likes organically. Now focused on AI enablement, CRM automation, and autonomous agent systems for startups and coaching businesses that want real ownership in their operator.",
+  profile: "I build digital products and grow them — technically and with content. Currently building an autonomous outbound sales system using multi-agent orchestration. Shipped DJElite (Supabase + React) in 3 months as a solo founder. Grew On The Ground Sound to 3K+ users organically — one Reel hit 1.9M views. Now focused on AI enablement and CRM automation for startups that want real ownership in their operator.",
   
   stats: [
     { value: "1.9M", label: "Views, 1 Reel" },
@@ -59,11 +59,11 @@ const cvData: CVData = {
   ],
   
   keyAchievements: [
-    "Produced a single Instagram Reel that reached 1,900,000 views, 60,100 likes, and 781 comments organically — driving a 33% increase in followers in 7 days.",
+    "Produced an Instagram Reel that reached 1,900,000 views, 60,100 likes, and 781 comments organically — driving a 33% increase in followers in 7 days.",
     
-    "Built DJElite end-to-end in 3 months as a solo founder: Supabase, React, TypeScript, OAuth, Stripe, Ably — complete DJ/promoter platform with Tinder-style matching, real-time chat, and event monetization.",
+    "Built DJElite end-to-end in 3 months: Supabase (Auth, Realtime, PostgreSQL), React, TypeScript, OAuth, Stripe, Ably — Tinder-style matching, real-time chat, and event monetization.",
     
-    "Built an autonomous outbound sales system with multi-agent orchestration (Paperclip, Hermes, Agentmail) — sent 900+ automated emails with custom landing pages generated per prospect and Stripe payment integration."
+    "Built an autonomous outbound sales system with multi-agent orchestration (Paperclip, Hermes, Agentmail) — 900+ emails sent with custom landing pages generated per prospect and Stripe payment integration."
   ],
   
   skills: [
@@ -97,11 +97,11 @@ const cvData: CVData = {
       period: "2019 - Present",
       location: "Buenos Aires / Barcelona / Remote",
       description: [
-        "Currently building an autonomous outbound sales system with multi-agent orchestration (Paperclip, Hermes, Agentmail) — sent 900+ automated emails with custom landing pages generated per prospect and Stripe payment integration. Managed via Discord with persistent memory (MemPalace).",
+        "Building an autonomous sales system that generates custom landing pages per prospect and handles payment flows. Sent 900+ campaigns with multi-agent orchestration managed via Discord.",
         
-        "Built DJElite (Supabase, React, Stripe, Ably) in 3 months as a solo founder — complete DJ/promoter platform with Tinder-style matching, real-time chat, and event monetization. Deployed to production on Netlify.",
+        "Shipped DJElite — a complete DJ/promoter platform with matching, real-time chat, and event monetization. Deployed to production in 3 months as solo founder.",
         
-        "Grew On The Ground Sound to 3K+ users with $0 ad spend — produced 12 DJ mix videos for YouTube (105K total views), one Instagram Reel hit 1.9M views and 60K likes (33% follower growth), automated 160+ posts in 11 months with Sprout Social.",
+        "Grew On The Ground Sound to 3K+ users organically — produced 12 DJ mix videos (105K YouTube views), viral Instagram content (1.9M views, 33% follower growth), and automated 160+ posts in 11 months.",
         
         "Audiovisual production and social media consulting for international clients (@kabir.ph)"
       ],
