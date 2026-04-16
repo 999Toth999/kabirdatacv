@@ -487,13 +487,13 @@ const App = () => {
     });
 
     // ===== EDUCATION =====
-    sectionTitle('Education', '>>');
     const eduColW = (contentW - 4) / 2;
     const eduCardH = 20;
     const eduRows = Math.ceil(cvData.education.length / 2);
-    const totalEduHeight = eduRows * (eduCardH + CARD_GAP);
-    // Check if entire education section fits, otherwise move to next page
+    const totalEduHeight = 12 + eduRows * (eduCardH + CARD_GAP); // Include section title height
+    // Check if entire education section (title + cards) fits, otherwise move to next page
     checkPage(totalEduHeight);
+    sectionTitle('Education', '>>');
     for (let i = 0; i < cvData.education.length; i += 2) {
       for (let j = 0; j < 2; j++) {
         const edu = cvData.education[i + j];
