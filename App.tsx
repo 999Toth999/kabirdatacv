@@ -456,7 +456,7 @@ const App = () => {
     cvData.experience.forEach(exp => {
       const bullets = exp.description;
       pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8);
-      const bulletLines = bullets.map(b => pdf.splitTextToSize(sanitize(`• ${b}`), contentW - 2 * PAD));
+      const bulletLines = bullets.map(b => pdf.splitTextToSize(sanitize(`• ${b}`), contentW - 2 * PAD - 16));
       const totalLines = bulletLines.reduce((sum, lines) => sum + lines.length, 0);
       const cardH = PAD_TOP + 18 + totalLines * LH + PAD;
       checkPage(cardH + CARD_GAP);
